@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Insight Engine Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Site Time Budgets</h1>
+        <p>Set a daily active time limit (in minutes) for specific sites.</p>
+
+        <div class="form-container">
+            <input type="text" id="domain" placeholder="e.g., youtube.com" class="input-field">
+            <input type="number" id="limit" placeholder="e.g., 60" class="input-field">
+            <button id="saveBtn" class="button">Save Limit</button>
+        </div>
+        <div id="status"></div>
+
+        <hr>
+
+        <h2>Current Budgets</h2>
+        <div id="limits-list"></div>
+    </div>
+    <script src="options.js"></script>
+</body>
+
+</html>

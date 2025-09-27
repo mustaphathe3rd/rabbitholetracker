@@ -1,0 +1,32 @@
+{
+    "manifest_version": 3,
+    "name": "Rabbithole Tracker",
+    "version": "0.1.0",
+    "description": "An AI-powered extension to track, understand, and manage your browsing rabbitholes.",
+    "permissions": [
+        "storage",
+        "tabs",
+        "scripting",
+        "idle",
+        "ai"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "background/service-worker.js",
+        "type": "module"
+    },
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "16": "assets/icons/icon16.png",
+            "128": "assets/icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "128": "assets/icons/icon128.png"
+    },
+    "options_page": "options/options.html"
+}

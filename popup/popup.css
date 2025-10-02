@@ -1,9 +1,179 @@
+/* popup/popup.css */
+
+/* --- Global Styles & Variables --- */
+:root {
+    --background-color: #1e1e1e;
+    --card-background: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-color: #4CAF50; /* A vibrant green for accents */
+    --border-color: #444444;
+}
+
 body {
-    font-family: sans-serif;
-    width: 300px;
-    padding: 10px;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 16px;
+    width: 350px;
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* --- Header --- */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* --- Card Styles --- */
+.card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.card__header h2 {
+    font-size: 16px;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* --- Live Session Specifics --- */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+.topic-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.topic-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.timer {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--accent-color);
     text-align: center;
+    margin-bottom: 16px;
+}
+
+.journey {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.journey__label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.journey__icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.journey__icons img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.arrow {
+    color: var(--text-secondary);
+}
+
+/* --- Weekly Insights Specifics --- */
+.insight-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+.view-report-link {
+    font-size: 14px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.view-report-link:hover {
+    text-decoration: underline;
+}
+
+.no-session-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.journey__icons {
+    /* --- Add these properties --- */
+    overflow-x: auto;      /* Allows horizontal scrolling */
+    white-space: nowrap;   /* Prevents icons from wrapping to a new line */
+    padding-bottom: 8px;   /* Adds space for the scrollbar */
+
+    /* Optional: Style the scrollbar to match the theme */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--card-background);
+}
+
+/* For Chrome/Safari scrollbar styling */
+.journey__icons::-webkit-scrollbar {
+    height: 6px;
+}
+.journey__icons::-webkit-scrollbar-track {
+    background: var(--card-background);
+}
+.journey__icons::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 10px;
 }

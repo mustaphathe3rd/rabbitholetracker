@@ -2,26 +2,39 @@
 <html lang="en">
 
 <head>
-    <title>Insight Engine Settings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbithole Tracker Options</title>
     <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Site Time Budgets</h1>
-        <p>Set a daily active time limit (in minutes) for specific sites.</p>
+        <header>
+            <h1>⚙️ Options</h1>
+        </header>
 
-        <div class="form-container">
-            <input type="text" id="domain" placeholder="e.g., youtube.com" class="input-field">
-            <input type="number" id="limit" placeholder="e.g., 60" class="input-field">
-            <button id="saveBtn" class="button">Save Limit</button>
-        </div>
-        <div id="status"></div>
+        <main>
+            <section class="card">
+                <h2>Time Limits</h2>
+                <p>Set a daily time limit for a specific website.</p>
+                <form id="settings-form">
 
-        <hr>
-
-        <h2>Current Budgets</h2>
-        <div id="limits-list"></div>
+                    <div class="form-group">
+                        <label for="domain">Website Domain:</label>
+                        <input type="text" id="domain" placeholder="e.g., youtube.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="limit">Daily Limit (minutes):</label>
+                        <input type="number" id="limit" min="1" placeholder="e.g., 60" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Save Settings</button>
+                        <span id="status-message"></span>
+                    </div>
+                </form>
+            </section>
+        </main>
     </div>
     <script src="options.js"></script>
 </body>

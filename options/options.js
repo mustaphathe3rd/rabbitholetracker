@@ -1,46 +1,61 @@
+// options/options.js
+
+// We need to import the functions from our storage manager.
+// To do this, we'll create a simple dynamic import.
+let storageManager;
+
+async function init() {
+    try {
+        const src = chrome.runtime.getURL('utils/storage-manager.js');
+        storageManager = await import(src);
+        loadSettings(); // Load existing settings once the module is ready
+    } catch (e) {
+        console.error("Error importing storage manager:", e);
+    }
+}
+
+const form = document.getElementById('settings-form');
 const domainInput = document.getElementById('domain');
 const limitInput = document.getElementById('limit');
-const saveBtn = document.getElementById('saveBtn');
-const statusDiv = document.getElementById('status');
-const limitsListDiv = document.getElementById('limits-list');
+const statusMessage = document.getElementById('status-message');
 
-const STORAGE_KEY = 'siteTimeBudgets';
+// --- Load existing settings and populate the form ---
+async function loadSettings() {
+    if (!storageManager) return;
+    const settings = await storageManager.getSettings();
+    const timeLimits = settings.timeLimits || {};
+    
+    // For this simple version, we assume only one limit is set.
+    // A more advanced version would handle a list of limits.
+    const firstDomain = Object.keys(timeLimits)[0];
+    if (firstDomain) {
+        domainInput.value = firstDomain;
+        limitInput.value = timeLimits[firstDomain];
+    }
+}
 
-// Save a new limit
-saveBtn.addEventListener('click', () => {
-    const domain = domainInput.value.trim().toLowerCase();
-    const limit = parseInt(limitInput.value, 10);
+// --- Save settings when the form is submitted ---
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!storageManager) return;
 
-    if (domain && limit > 0) {
-        chrome.storage.sync.get(STORAGE_KEY, (data) => {
-            const limits = data[STORAGE_KEY] || {};
-            limits[domain] = limit; // Store in minutes
-            chrome.storage.sync.set({ [STORAGE_KEY]: limits }, () => {
-                statusDiv.textContent = 'Budget saved!';
-                domainInput.value = '';
-                limitInput.value = '';
-                loadBudgets(); // Refresh the list
-                setTimeout(() => { statusDiv.textContent = ''; }, 2000);
-            });
-        });
-    } else {
-        statusDiv.textContent = 'Please enter a valid domain and limit.';
+    const domain = domainInput.value;
+    const limitInMinutes = parseInt(limitInput.value, 10);
+
+    if (domain && limitInMinutes > 0) {
+        const newSettings = {
+            timeLimits: {
+                [domain]: limitInMinutes
+            }
+        };
+        await storageManager.saveSettings(newSettings);
+        
+        statusMessage.textContent = "Settings saved!";
+        setTimeout(() => {
+            statusMessage.textContent = "";
+        }, 3000); // Clear message after 3 seconds
     }
 });
 
-// Load and display existing limits
-function loadBudgets() {
-    chrome.storage.sync.get(STORAGE_KEY, (data) => {
-        const limits = data[STORAGE_KEY] || {};
-        limitsListDiv.innerHTML = '';
-        if (Object.keys(limits).length === 0) {
-            limitsListDiv.innerHTML = '<p>No budgets set yet.</p>';
-            return;
-        }
-        for (const domain in limits) {
-            limitsListDiv.innerHTML += `<p><b>${domain}</b>: ${limits[domain]} minutes per day</p>`;
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', loadBudgets);
+// Initialize the script
+init();

@@ -10,10 +10,48 @@
 
 <body>
     <div class="container">
-        <h1>Rabbithole Tracker</h1>
-        <p>Your AI-powered browsing coach.</p>
+        <header class="header">
+            <img src="../assets/icons/icon64.png" alt="Logo" class="logo">
+            <h1>Rabbithole Tracker</h1>
+        </header>
+
+        <main id="main-content">
+            <section class="card live-session">
+                <div class="card__header">
+                    <h2>Live Session</h2>
+                    <span id="status-dot" class="status-dot"></span>
+                </div>
+                <div class="card__body">
+                    <p class="topic-label">CURRENT TOPIC</p>
+                    <h3 id="topic-title" class="topic-title">Initializing...</h3>
+                    <div id="timer" class="timer">0s</div>
+
+                    <div class="journey">
+                        <p class="journey__label">Journey:</p>
+                        <div id="journey-icons" class="journey__icons">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card weekly-insights">
+                <div class="card__header">
+                    <h2>Weekly Insights</h2>
+                </div>
+                <div class="card__body">
+                    <p id="insight-text" class="insight-text">
+                        🤖 Analysis will be available after one week of usage.
+                    </p>
+                    <a href="#" class="view-report-link">View Full Report &rarr;</a>
+                </div>
+            </section>
+        </main>
+
+        <div id="no-session" class="no-session-message" style="display: none;">
+            <p>No active browsing session. Start navigating to begin tracking!</p>
+        </div>
     </div>
-    <script src="popup.js"></script>
+    <script src="popup.js" defer></script>
 </body>
 
 </html>

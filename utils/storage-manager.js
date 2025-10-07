@@ -67,3 +67,61 @@ export async function getSettings() {
         return {}; // Return default on error
     }
 }
+
+/**
+ * Retrieves all data for a specific domain for today.
+ * @param {string} domain The domain to retrieve data for.
+ * @returns {Promise<object>} The data object for that domain.
+ */
+export async function getDomainDataForToday(domain) {
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        const data = await chrome.storage.local.get(today);
+        const dayData = data[today] || {};
+        return dayData[domain] || { totalTime: 0, pages: {} };
+    } catch (error) {
+        console.error(`STORAGE_MANAGER: Failed to get data for domain "${domain}"`, error);
+        return { totalTime: 0, pages: {}};
+    }
+}
+
+/**
+ * Retrieves all browsing data from the last N days.
+ * @param {number} days - The number of days of data to retrieve.
+ * @returns {Promise<object>} - An object containing data for the requested days.
+ */
+export async function getLastDaysData(days = 7) {
+    const dateKeys = [];
+    for (let i =0; i < days; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        dateKeys.push(date.toISOString().split('T')[0]);
+    }
+    try {
+        return await chrome.storage.local.get(dateKeys);
+    } catch (error) {
+        console.error("STORAGE_MANAGER: Error getting last days data", error);
+        return {};
+    }
+}
+
+/**
+ * Saves the AI-generated weekly report to storage.
+ * @param {string} reportText - The report content.
+ */
+export async function saveWeeklyReport(reportText) {
+    const reportData = {
+        text: reportText,
+        generatedDate: new Date().toISOString().split('T')[0]
+    };
+    await chrome.storage.local.set({ weeklyReport: reportData });
+}
+
+/**
+ * Retrieves the saved weekly report from storage.
+ * @returns {Promise<object|null>} - The report object or null if not found.
+ */
+export async function getWeeklyReport() {
+    const data = await chrome.storage.local.get('weeklyReport');
+    return data.weeklyReport || null;
+}

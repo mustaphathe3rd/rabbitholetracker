@@ -10,11 +10,17 @@
 
 <body>
     <div class="container">
-        <header class="header">
-            <img src="../assets/icons/icon64.png" alt="Logo" class="logo">
-            <h1>Rabbithole Tracker</h1>
-        </header>
 
+        <header class="header">
+            <div class="header__left">
+                <img src="../assets/icons/icon64.png" alt="Logo" class="logo">
+                <h1>Rabbithole Tracker</h1>
+            </div>
+            <div class="header__right">
+                <button id="generate-report-btn" class="btn-header">Generate Report</button>
+                <button id="mic-btn" class="btn-icon" title="Activate Voice Commands">🎤</button>
+            </div>
+        </header>
         <main id="main-content">
             <section class="card live-session">
                 <div class="card__header">
@@ -25,13 +31,15 @@
                     <p class="topic-label">CURRENT TOPIC</p>
                     <h3 id="topic-title" class="topic-title">Initializing...</h3>
                     <div id="timer" class="timer">0s</div>
-
                     <div class="journey">
                         <p class="journey__label">Journey:</p>
                         <div id="journey-icons" class="journey__icons">
                         </div>
                     </div>
                 </div>
+                <footer class="card__footer">
+                    <button id="generate-session-report-btn" class="btn-secondary">Generate Session Report</button>
+                </footer>
             </section>
 
             <section class="card weekly-insights">

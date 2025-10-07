@@ -4,9 +4,10 @@
 // --- NEW: Import the session manager ---
 import { addPageVisitToSession } from './session-manager.js';
 import { saveTimeRecord } from '../utils/storage-manager.js';
+import { checkTimeLimits } from './blocker-engine.js';
 
 // This object holds the state of the currently tracked tab.
-let activeTabInfo = {
+export let activeTabInfo = {
     tabId: null,
     url: null,
     startTime: null
@@ -22,12 +23,21 @@ async function stopTracking() {
     const endTime = Date.now();
     const timeSpentInSeconds = Math.round((endTime - activeTabInfo.startTime) / 1000);
 
-    // Only save meaningful durations (e.g., more than 1 second)
     if (timeSpentInSeconds > 1) {
-        console.log(`TIME_TRACKER: Stopping track for ${activeTabInfo.url}. Time spent: ${timeSpentInSeconds}s`);
-        await saveTimeRecord(activeTabInfo.url, timeSpentInSeconds);
-    }
+        const urlToSave = activeTabInfo.url; // Save before it gets reset
+        console.log(`TIME_TRACKER: Stopping track for ${urlToSave}. Time spent: ${timeSpentInSeconds}s`);
+        await saveTimeRecord(urlToSave, timeSpentInSeconds);
 
+        // --- NEW: CHECK TIME LIMITS AFTER SAVING ---
+        try {
+            const domain = new URL(urlToSave).hostname;
+            await checkTimeLimits(domain);
+        } catch (error) {
+            console.error("TIME_TRACKER: Error checking time limits", error);
+        }
+        // --- END OF NEW LOGIC ---
+    }
+    
     // Reset the tracker state
     activeTabInfo = { tabId: null, url: null, startTime: null };
 }

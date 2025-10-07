@@ -4,6 +4,7 @@
 // --- Import our modules ---
 import { initialize as initializeTimeTracker, trackTab } from './time-tracker.js';
 import { addPageVisitToSession } from './session-manager.js';
+import { generateSessionReport } from './report-generator.js'; 
 
 console.log("Rabbithole Insight Engine: Service Worker starting up...");
 
@@ -65,6 +66,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === 'PAGE_DATA') {
         // When we receive page data, we pass it to the session manager.
         addPageVisitToSession(message.payload);
+    } else if (message.type === 'GENERATE_SESSION_REPORT') {
+        generateSessionReport();
     }
     // Return true to indicate you wish to send a response asynchronously
     return true; 

@@ -177,3 +177,122 @@ h1 {
     background-color: var(--accent-color);
     border-radius: 10px;
 }
+
+.btn-header {
+    background-color: var(--card-background);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-header:hover {
+    background-color: #444;
+    color: var(--text-primary);
+}
+
+.btn-header:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Tweak the main header for better alignment --- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* This will push the button to the right */
+    gap: 12px;
+}
+
+.journey__more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--border-color);
+    border-radius: 12px;
+    padding: 2px 8px;
+    margin-left: 4px;
+}
+
+.card__footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Add these styles to the bottom of popup.css */
+
+/* --- Header Layout Update --- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__left, .header__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* --- Icon Button (Microphone) Styling --- */
+.btn-icon {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: #444;
+    color: var(--text-primary);
+}
+
+.btn-icon.listening {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    animation: pulse-mic 1.5s infinite;
+}
+
+@keyframes pulse-mic {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}

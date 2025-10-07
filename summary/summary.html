@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Summary</title>
+    <link rel="stylesheet" href="summary.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Your Weekly Report</h1>
+        </header>
+
+        <main>
+            <section class="card insight-card">
+                <h2>AI-Powered Insight</h2>
+                <p id="insight-text">Loading your personalized analysis...</p>
+            </section>
+
+            <section class="card chart-card">
+                <h2>Top Domains by Time Spent</h2>
+                <div class="chart-container">
+                    <canvas id="domain-chart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../lib/chart.umd.js"></script>
+    <script src="../lib/chartjs-plugin-datalabels.min.js"></script>
+    <script src="summary.js"></script>
+</body>
+
+</html>

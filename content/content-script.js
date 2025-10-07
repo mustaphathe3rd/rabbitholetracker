@@ -65,6 +65,7 @@ function createEnableAIButton() {
         button.disabled = true;
 
         await window.Summarizer.create({
+            outputLanguage: 'en',
             monitor: (monitor) => {
                 monitor.addEventListener('downloadprogress', (e) => {
                     const progress = Math.round((e.loaded / e.total) * 100);
@@ -99,34 +100,54 @@ function getPageData() {
 async function runSummarization(summarizer, pageData) {
     // ... (This function remains unchanged)
     console.log("AI SCRIPT: Running summarization...");
-    const pageText = document.body.innerText;
-    if (pageText && pageText.trim().length > 200) {
-        // We truncate the text to a safe limit (e.g., 30000 characters)
-        const truncatedText = pageText.substring(0, 30000);
-        const summaryResult = await summarizer.summarize(truncatedText);
-        console.log("AI SCRIPT: Raw summary result from AI:", summaryResult);
-        if (summaryResult) {
-            const topics = summaryResult
-                .replace(/\*/g, '')
-                .split(/\n/)
-                .map(topic => topic.trim().toLowerCase())
-                .filter(topic => topic.length > 5); // Filter out empty or very short strings
-    
-            pageData.aiTopics = [...new Set(topics)];
-            console.log("AI SCRIPT: Successfully extracted topics:", pageData.aiTopics);
-            }
-    } else {
-        console.warn("AI SCRIPT: Page has insufficient text to summarize.");
+    try {
+        const pageText = document.body.innerText;
+        if (pageText && pageText.trim().length > 200) {
+            // We truncate the text to a safe limit (e.g., 20000 characters)
+            const truncatedText = pageText.substring(0, 20000);
+            const summaryResult = await summarizer.summarize(truncatedText);
+            console.log("AI SCRIPT: Raw summary result from AI:", summaryResult);
+            if (summaryResult) {
+                const topics = summaryResult
+                    .replace(/\*/g, '')
+                    .split(/\n/)
+                    .map(topic => topic.trim().toLowerCase())
+                    .filter(topic => topic.length > 5); // Filter out empty or very short strings
+        
+                pageData.aiTopics = [...new Set(topics)];
+                console.log("AI SCRIPT: Successfully extracted topics:", pageData.aiTopics);
+                }
+        } else {
+            console.warn("AI SCRIPT: Page has insufficient text to summarize.");
+        }
+    } catch (error) {
+        console.error("AI SCRIPT: Error during summarization (potentially due to input size):", error);
     }
 }
 
+// --- THIS IS THE FIX ---
+/**
+ * A robust helper function to send data to the service worker.
+ * It includes a small delay and a try/catch block to handle timing issues.
+ */
 function sendMessage(pageData) {
-    // ... (This function remains unchanged)
     if (!pageData) {
         pageData = getPageData();
     }
     console.log("AI SCRIPT: Sending final pageData object to service worker:", pageData);
-    chrome.runtime.sendMessage({ type: 'PAGE_DATA', payload: pageData });
+
+    // Add a small delay to ensure chrome.runtime is available.
+    setTimeout(() => {
+        try {
+            if (chrome && chrome.runtime) {
+                chrome.runtime.sendMessage({ type: 'PAGE_DATA', payload: pageData });
+            } else {
+                console.error("AI SCRIPT: chrome.runtime is not available. Cannot send message.");
+            }
+        } catch (error) {
+            console.error("AI SCRIPT: Error sending message:", error);
+        }
+    }, 100); // 100ms delay
 }
 
 window.addEventListener('load', initializeAI, { once: true });

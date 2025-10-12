@@ -1,53 +1,69 @@
 // background/blocker-engine.js
-// This module is responsible for enforcing the daily time limits set by the user in the options page.
-// It checks the cumulative time spent on a domain against its configured limit.
+/**
+ * @file This module serves as the rule enforcement engine for the extension.
+ * Its primary responsibility is to check a user's browsing time against the daily
+ * limits they have configured in the options page. It is designed to be called
+ * from the time-tracker module every time a browsing period for a specific site concludes.
+ */
 
+// Imports functionality from the storage manager to get user settings and daily browsing data.
 import { getSettings, getDomainDataForToday } from '../utils/storage-manager.js';
 
 /**
- * Checks if the cumulative time spent on a given domain today has exceeded the user's defined limit.
- * This function is called every time a tracking session for a domain ends.
- * @param {string} domain The domain to check (e.g., "www.youtube.com").
+ * Checks if the cumulative time spent on a given domain for the current day has exceeded
+ * the user's defined limit. If the limit is surpassed, it triggers a system notification.
+ * This is an async function because it needs to retrieve data from the asynchronous
+ * chrome.storage API.
+ *
+ * @param {string} domain The full domain to check (e.g., "www.youtube.com").
  */
 export async function checkTimeLimits(domain) {
-    // 1. Retrieve the user's saved settings from storage.
+    // 1. Retrieve the user's saved settings from persistent storage.
     const settings = await getSettings();
     const timeLimits = settings.timeLimits || {};
 
     // 2. Perform a robust lookup for the domain's time limit.
-    // This handles cases where a user enters 'youtube.com' but visits 'www.youtube.com'.
-    // It first checks for an exact match, then checks for a match without the 'www.' prefix.
+    // This is a key piece of logic to improve user experience, as a user might type
+    // 'youtube.com' in the settings, but the browser reports the domain as 'www.youtube.com'.
+    // This check handles both cases by first trying an exact match, and if that fails,
+    // it tries again after stripping the 'www.' prefix from the domain.
     const limitInMinutes = timeLimits[domain] || timeLimits[domain.replace(/^www\./, '')];
 
-    // If no limit is set for this domain or its base domain, exit the function.
+    // If no limit is configured for this domain, there's nothing more to do.
     if (!limitInMinutes) {
         return;
     }
 
-    // 3. Retrieve the total time spent on this domain for today.
+    // 3. Convert the limit to seconds and retrieve today's total time for the domain.
     const limitInSeconds = limitInMinutes * 60;
     const domainData = await getDomainDataForToday(domain);
     const totalTimeTodayInSeconds = domainData.totalTime || 0;
 
-    // 4. Compare the time spent against the limit and trigger a notification if exceeded.
+    // 4. Compare the total time spent against the configured limit.
     if (totalTimeTodayInSeconds > limitInSeconds) {
+        // If the time spent is greater than the limit, trigger the notification.
         triggerNotification(domain, limitInMinutes);
     }
 }
 
 /**
- * Creates and displays a standard Chrome notification to alert the user.
- * @param {string} domain The domain that exceeded its limit.
- * @param {number} limitInMinutes The configured time limit in minutes.
+ * Creates and displays a standard Chrome system notification to alert the user.
+ * This function is internal to the blocker-engine module.
+ *
+ * @param {string} domain The domain that has exceeded its time limit.
+ * @param {number} limitInMinutes The time limit in minutes that was surpassed.
  */
 function triggerNotification(domain, limitInMinutes) {
-    // Use a unique ID to prevent multiple identical notifications from stacking.
+    // A unique ID is used for the notification. If a notification with the same ID
+    // is created again, Chrome will update the existing one instead of creating a new one,
+    // which prevents notification spam for the same domain.
     const notificationId = `limit-exceeded-${domain}`;
+    
     chrome.notifications.create(notificationId, {
         type: 'basic',
-        iconUrl: '../assets/icons/icon128.png',
+        iconUrl: '../assets/icons/icon128.png', // Main extension icon.
         title: 'Time Limit Exceeded',
         message: `You've spent more than your daily limit of ${limitInMinutes} minutes on ${domain}.`,
-        priority: 2
+        priority: 2 // Sets the notification priority to high.
     });
 }

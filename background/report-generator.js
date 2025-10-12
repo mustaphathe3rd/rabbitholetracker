@@ -1,35 +1,45 @@
 // background/report-generator.js
-// This module uses the experimental Writer API to synthesize a browsing session's data
-// into a coherent, structured, and human-readable article.
+/**
+ * @file This module is responsible for synthesizing a user's browsing session into a
+ * high-quality, human-readable article. It leverages the experimental `Writer API` to
+ * transform raw tracking data into a structured and insightful Markdown document, which
+ * is then displayed to the user in a new tab.
+ */
 
 /**
- * The main function to generate a report from the current session. It is triggered by a
- * message from the popup UI.
+ * The main function to generate a report from the current browsing session. This function
+ * is triggered by a message from the popup UI when the user clicks "Export Session".
  */
 export async function generateSessionReport() {
     console.log("REPORT_GENERATOR: Starting session report generation...");
 
-    // 1. Check if the Writer API is supported and available.
-    // This requires the user to have the correct hardware and to have registered for the Origin Trial.
+    // 1. Feature Detection & Availability Check.
+    // First, we verify that the experimental `Writer` API is available in the browser's global scope.
+    // This requires the user to have a compatible browser and the correct Origin Trial token.
     if (!self.Writer) {
         console.warn("REPORT_GENERATOR: Writer API is not available in this browser.");
-        return;
+        return; // Exit if the API is not supported.
     }
+
+    // Then, we check if the underlying AI model has been downloaded and is ready to use.
     const availability = await self.Writer.availability();
     if (availability !== 'available' && availability !== 'readily') {
         console.warn("REPORT_GENERATOR: Writer model is not ready. Status:", availability);
-        return;
+        return; // Exit if the model isn't ready.
     }
 
-    // 2. Retrieve the current browsing session data.
+    // 2. Retrieve the current session data from temporary storage.
     const data = await chrome.storage.session.get('currentSession');
     const session = data.currentSession;
-    if (!session || !session.pages || !session.pages.length === 0) {
+
+    // Ensure there is valid session data to generate a report from.
+    if (!session || !session.pages || session.pages.length === 0) {
         console.warn("REPORT_GENERATOR: No active session data to report.");
         return;
     }
 
-    // 3. Format the session data into a simple text block to be used in the prompt.
+    // 3. Format the session data into a simple text block for the AI prompt.
+    // This consolidates all the titles and AI-extracted topics into a clean, readable format.
     let promptData = `Primary Topic: ${session.primaryTopic}\n\nPages Visited:\n`;
     session.pages.forEach(page => {
         promptData += `- Title: ${page.title}\n`;
@@ -38,41 +48,55 @@ export async function generateSessionReport() {
         }
     });
 
-    // 4. Craft a detailed prompt, instructing the AI to act as a writer and use Markdown.
+    // 4. Craft a detailed, multi-step prompt for the Writer API.
+    // This is a key part of the "prompt engineering" process. We give the AI a clear role ("skilled writer"),
+    // provide the raw data, and give it a specific set of instructions on how to format the output as a Markdown article.
     const prompt = `
         You are a skilled writer and analyst. Your task is to synthesize the following raw browsing data into a short, coherent article (not just a list) using Markdown.
+
         Here is the data from the browsing session:
         ---
         ${promptData}
         ---
+
         Please do the following:
-        1. Create an insightful title for the article that captures the main theme of the user's journey of discovery.
-        2. Write a brief introductory paragraph that summarizes the overall theme.
-        3. For each major topic or website visited, write a small paragraph that explains what was explored, drawing connections between the different pages where possible.
-        4. Use Markdown for formatting (e.g., # for the title, ## for subheadings, * for italics).
+        1.  Create an insightful title for the article that captures the main theme of the user's journey of discovery.
+        2.  Write a brief introductory paragraph that summarizes the overall theme.
+        3.  For each major topic or website visited, write a small paragraph that explains what was explored, drawing connections between the different pages where possible.
+        4.  Use Markdown for formatting (e.g., # for the title, ## for subheadings, * for italics).
     `;
 
     // 5. Call the Writer API and display the result.
     try {
+        // Create an instance of the Writer, configured to output Markdown.
         const writer = await self.Writer.create({ format: 'markdown' });
+        
+        // Send the prompt and await the AI's generated content.
         const reportContent = await writer.write(prompt);
+        
+        // Pass the generated Markdown to a helper function to display it.
         await displayReportInNewTab(reportContent);
-        // Clean up the writer instance to free up memory.
+        
+        // It's crucial to destroy the writer instance after use to free up system resources.
         writer.destroy();
     } catch (error) {
+        // Gracefully handle any errors that occur during the AI generation process.
         console.error("REPORT_GENERATOR: Error during report generation:", error);
     }
 }
 
 /**
- * Displays the generated report in a new, dedicated tab.
- * This method is more robust than using a 'data:' URL.
+ * Displays the generated report in a new, dedicated tab. This function uses a robust two-step
+ * process to ensure the content is displayed correctly and securely.
+ *
  * @param {string} reportContent - The Markdown text generated by the AI.
  */
 async function displayReportInNewTab(reportContent) {
-    // 1. Save the report content to temporary local storage.
+    // Step 1: Save the report content to a temporary location in `chrome.storage.local`.
+    // The report page's script will retrieve the content from this location.
     await chrome.storage.local.set({ latestReport: reportContent });
 
-    // 2. Open our dedicated report.html page, which will read from storage.
+    // Step 2: Open our dedicated, sandboxed `report.html` page. This is more secure and reliable
+    // than using a 'data:' URL, as it avoids issues with Content Security Policy (CSP).
     await chrome.tabs.create({ url: 'report/report.html' });
 }

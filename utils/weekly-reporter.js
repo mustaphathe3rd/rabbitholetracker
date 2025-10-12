@@ -1,7 +1,5 @@
 import { getLastDaysData, saveWeeklyReport } from './storage-manager.js';
 
-import { activeTabInfo } from '../background/time-tracker.js';
-
 /**
  * The main function that generates and saves a weekly report.
  */

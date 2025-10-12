@@ -1,85 +1,86 @@
-/* options/options.css */
-:root {
-    --background-color: #1e1e1e;
-    --card-background: #2d2d2d;
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --accent-color: #4CAF50;
-    --border-color: #444444;
-}
+body { padding: 40px; }
+.container { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+h1, h2 { font-weight: 600; }
+p { color: var(--text-secondary); }
 
-body {
-    background-color: var(--background-color);
-    color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 40px;
+.limit-list { list-style: none; padding: 0; margin: 0 0 20px 0; }
+.limit-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
 }
+.limit-list li:last-child { border-bottom: none; }
+.limit-domain { font-weight: 600; color: var(--text-primary); }
+.limit-time { color: var(--text-secondary); }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-h1, h2 {
-    font-weight: 600;
-}
-
-p {
-    color: var(--text-secondary);
-}
-
-.card {
-    background-color: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 24px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-input[type="text"], input[type="number"] {
-    width: 100%;
+.add-form { display: flex; gap: 10px; }
+.add-form input {
+    flex-grow: 1;
     padding: 10px;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     color: var(--text-primary);
-    font-size: 16px;
-    box-sizing: border-box;
+    font-size: 14px;
 }
+.add-form input[type="number"] { flex-grow: 0; width: 60px; }
 
-.form-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-}
 
-.btn {
-    background-color: var(--accent-color);
+/* --- CONSOLIDATED BUTTON STYLES --- */
+
+/* Base styles for all buttons on this page */
+.btn-add, .btn-remove, .btn-danger {
     color: white;
     border: none;
-    padding: 12px 20px;
     border-radius: 6px;
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    padding: 10px 15px;
+    transition: background-color 0.2s; /* Adds a smooth hover effect */
 }
 
-.btn:hover {
-    background-color: #45a049;
+/* Specific style for the "Add" button */
+.btn-add {
+    background-color: var(--accent-color); /* Uses the theme's pink color */
+}
+.btn-add:hover {
+    background-color: #d83c87; /* A slightly darker pink for hover */
 }
 
-#status-message {
-    color: var(--accent-color);
-    font-weight: bold;
+/* Specific styles for the "Remove" and "Clear" buttons */
+.btn-remove, .btn-danger {
+    background-color: #F44336; /* A distinct red for destructive actions */
+    font-size: 12px; /* Smaller font for "Remove" button */
+    padding: 8px 12px;
+}
+.btn-danger {
+    font-size: 14px; /* Larger font for the main "Clear History" button */
+    padding: 10px 15px;
+}
+.btn-remove:hover, .btn-danger:hover {
+    background-color: #d32f2f; /* A darker red for hover */
+}
+
+#status-message { color: var(--accent-color); font-weight: bold; }
+
+.report-title-container {
+    display: flex;
+    align-items: center; /* Vertically align icon and text */
+    gap: 10px; /* Space between icon and text */
+}
+
+.report-icon {
+    width: 32px; /* Adjust size as needed */
+    height: 32px;
+    object-fit: contain;
+}
+
+.report-header h1 { /* Target the H1 inside the report header */
+    margin: 0; /* Remove default margin to align properly with icon */
+    font-size: 2em; /* Ensure font size is consistent */
+    color: var(--text-primary); /* Use primary text color for the static title */
+    border-bottom: none; /* Remove border from the main static title */
+    padding-bottom: 0;
 }

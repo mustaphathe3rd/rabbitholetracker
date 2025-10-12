@@ -1,0 +1,41 @@
+/* in assets/common.css */
+
+:root {
+    /* --- Bunny Theme Palette --- */
+    --background-color: #dd2565;   /* Soft off-white background */
+    --card-background: #ffffff;    /* Pure white for cards */
+    --text-primary: #1d1d1f;       /* Dark text for readability */
+    --text-secondary: #6e6e73;    /* Softer gray for secondary text */
+    --accent-color: #ec4899;       /* A vibrant, modern pink */
+    --border-color: #e5e5e5;       /* Light gray for borders */
+}
+
+/* The rest of the file (body, .card, etc.) remains the same */
+body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+.card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.card + .card {
+    margin-top: 16px;
+}

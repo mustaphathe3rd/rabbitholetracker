@@ -4,15 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Session Report</title>
+    <link rel="stylesheet" href="../assets/common.css">
     <link rel="stylesheet" href="report.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Session Report</h1>
-        <div id="content">
+        <header class="report-header">
+            <div class="report-title-container">
+                <img src="../assets/icons/icon64.png" alt="Report Icon" class="report-icon">
+                <h1>Session Report</h1>
+            </div>
+            <button id="export-pdf-btn" class="btn-export">Export to PDF</button>
+        </header>
+        <main class="card" id="main-content">
             <p>Loading your AI-generated report...</p>
-        </div>
+        </main>
     </div>
     <script src="../lib/marked.min.js"></script>
     <script src="report.js"></script>

@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Summary</title>
+    <link rel="stylesheet" href="../assets/common.css">
     <link rel="stylesheet" href="summary.css">
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>📊 Your Weekly Report</h1>
+            <div class="report-title-container">
+                <img src="../assets/icons/icon64.png" alt="Report Icon" class="report-icon">
+                <h1>Your Weekly Summary</h1>
+            </div>
         </header>
 
         <main>
@@ -21,7 +25,14 @@
             </section>
 
             <section class="card chart-card">
-                <h2>Top Domains by Time Spent</h2>
+                <div class="card-header">
+                    <h2>Top Domains by Time Spent</h2>
+                    <div id="chart-type-controls" class="chart-controls">
+                        <label><input type="radio" name="chartType" value="doughnut" checked> Doughnut</label>
+                        <label><input type="radio" name="chartType" value="pie"> Pie</label>
+                        <label><input type="radio" name="chartType" value="bar"> Bar</label>
+                    </div>
+                </div>
                 <div class="chart-container">
                     <canvas id="domain-chart"></canvas>
                 </div>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rabbithole Tracker</title>
+    <link rel="stylesheet" href="../assets/common.css">
     <link rel="stylesheet" href="popup.css">
 </head>
 
@@ -17,10 +18,15 @@
                 <h1>Rabbithole Tracker</h1>
             </div>
             <div class="header__right">
-                <button id="generate-report-btn" class="btn-header">Generate Report</button>
+                <button id="generate-report-btn" class="btn-header">Generate Weekly Insight</button>
                 <button id="mic-btn" class="btn-icon" title="Activate Voice Commands">🎤</button>
             </div>
         </header>
+
+        <div id="loading-animation" class="loading-overlay">
+            <video src="../assets/bunny-digging.mp4" class="bunny-gif" autoplay loop muted playsinline></video>
+            <p id="loading-message" class="loading-message"></p>
+        </div>
         <main id="main-content">
             <section class="card live-session">
                 <div class="card__header">
@@ -33,13 +39,10 @@
                     <div id="timer" class="timer">0s</div>
                     <div class="journey">
                         <p class="journey__label">Journey:</p>
-                        <div id="journey-icons" class="journey__icons">
-                        </div>
+                        <div id="journey-icons" class="journey__icons"></div>
                     </div>
+                    <button id="generate-session-report-btn" class="btn-secondary">Export Session</button>
                 </div>
-                <footer class="card__footer">
-                    <button id="generate-session-report-btn" class="btn-secondary">Generate Session Report</button>
-                </footer>
             </section>
 
             <section class="card weekly-insights">
@@ -48,7 +51,7 @@
                 </div>
                 <div class="card__body">
                     <p id="insight-text" class="insight-text">
-                        🤖 Analysis will be available after one week of usage.
+                        Click "Generate Weekly Insight" to get started.
                     </p>
                     <a href="#" class="view-report-link">View Full Report &rarr;</a>
                 </div>

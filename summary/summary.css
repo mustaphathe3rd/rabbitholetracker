@@ -1,13 +1,3 @@
-/* summary/summary.css */
-:root {
-    --background-color: #1e1e1e;
-    --card-background: #2d2d2d;
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --accent-color: #4CAF50;
-    --border-color: #444444;
-}
-
 body {
     background-color: var(--background-color);
     color: var(--text-primary);
@@ -45,4 +35,60 @@ h1, h2 {
     position: relative;
     height: 400px;
     width: 100%;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 15px;
+    background-color: var(--background-color);
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.chart-controls label {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: rgb(10, 10, 10);
+}
+
+.chart-controls input[type="radio"] {
+    display: none; /* Hide the actual radio button */
+}
+
+/* Style the label when the radio button is checked */
+.chart-controls input[type="radio"]:checked + label {
+    background-color: var(--accent-color);
+    color: rgb(255, 253, 253);
+    font-weight: 600;
+}
+
+
+.report-title-container {
+    display: flex;
+    align-items: center; /* Vertically align icon and text */
+    gap: 10px; /* Space between icon and text */
+}
+
+.report-icon {
+    width: 32px; /* Adjust size as needed */
+    height: 32px;
+    object-fit: contain;
+}
+
+.report-header h1 { /* Target the H1 inside the report header */
+    margin: 0; /* Remove default margin to align properly with icon */
+    font-size: 2em; /* Ensure font size is consistent */
+    color: var(--text-primary); /* Use primary text color for the static title */
+    border-bottom: none; /* Remove border from the main static title */
+    padding-bottom: 0;
 }

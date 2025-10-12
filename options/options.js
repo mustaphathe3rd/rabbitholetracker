@@ -1,61 +1,125 @@
 // options/options.js
+// This script powers the extension's options page.
+// It handles loading saved settings from storage, displaying them to the user,
+// and saving any changes made by the user (adding/removing time limits, clearing data).
 
-// We need to import the functions from our storage manager.
-// To do this, we'll create a simple dynamic import.
+// A global variable to hold the dynamically imported storage manager module.
 let storageManager;
 
+/**
+ * Initializes the script by dynamically importing the storage manager module.
+ * This is necessary because UI scripts (like options pages) cannot use static import statements
+ * like background service workers can.
+ */
 async function init() {
     try {
         const src = chrome.runtime.getURL('utils/storage-manager.js');
         storageManager = await import(src);
-        loadSettings(); // Load existing settings once the module is ready
+        // Once the module is loaded, populate the page with any saved settings.
+        loadSettings();
     } catch (e) {
-        console.error("Error importing storage manager:", e);
+        console.error("Failed to initialize options page script:", e);
     }
 }
 
-const form = document.getElementById('settings-form');
-const domainInput = document.getElementById('domain');
-const limitInput = document.getElementById('limit');
+// --- DOM Element References ---
+const limitList = document.getElementById('limit-list');
+const addLimitForm = document.getElementById('add-limit-form');
+const domainInput = document.getElementById('domain-input');
+const limitInput = document.getElementById('limit-input');
 const statusMessage = document.getElementById('status-message');
+const clearHistoryBtn = document.getElementById('clear-history-btn');
 
-// --- Load existing settings and populate the form ---
+// A local variable to hold the settings object for quick access.
+let currentSettings = {};
+
+/**
+ * Renders the list of currently saved time limits to the UI.
+ * It clears the existing list and rebuilds it from the `currentSettings` object.
+ */
+function renderLimits() {
+    limitList.innerHTML = '';
+    const timeLimits = currentSettings.timeLimits || {};
+    // Loop through each saved limit and create a list item for it.
+    for (const domain in timeLimits) {
+        const li = document.createElement('li');
+        // Using a template literal to easily create the HTML structure for each list item.
+        li.innerHTML = `
+            <div>
+                <span class="limit-domain">${domain}</span>
+                <span class="limit-time">- ${timeLimits[domain]} min/day</span>
+            </div>
+            <button class="btn-remove" data-domain="${domain}">Remove</button>
+        `;
+        limitList.appendChild(li);
+    }
+}
+
+/**
+ * Fetches the settings from chrome.storage and triggers a UI render.
+ */
 async function loadSettings() {
     if (!storageManager) return;
-    const settings = await storageManager.getSettings();
-    const timeLimits = settings.timeLimits || {};
-    
-    // For this simple version, we assume only one limit is set.
-    // A more advanced version would handle a list of limits.
-    const firstDomain = Object.keys(timeLimits)[0];
-    if (firstDomain) {
-        domainInput.value = firstDomain;
-        limitInput.value = timeLimits[firstDomain];
-    }
+    currentSettings = await storageManager.getSettings();
+    renderLimits();
 }
 
-// --- Save settings when the form is submitted ---
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!storageManager) return;
+// --- Event Listeners ---
 
-    const domain = domainInput.value;
-    const limitInMinutes = parseInt(limitInput.value, 10);
-
-    if (domain && limitInMinutes > 0) {
-        const newSettings = {
-            timeLimits: {
-                [domain]: limitInMinutes
-            }
-        };
-        await storageManager.saveSettings(newSettings);
+// Handles the submission of the "Add Limit" form.
+addLimitForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent the form from causing a page reload.
+    const domain = domainInput.value.trim();
+    const limit = parseInt(limitInput.value, 10);
+    
+    if (domain && limit > 0) {
+        if (!currentSettings.timeLimits) {
+            currentSettings.timeLimits = {};
+        }
+        currentSettings.timeLimits[domain] = limit;
+        await storageManager.saveSettings(currentSettings);
         
-        statusMessage.textContent = "Settings saved!";
-        setTimeout(() => {
-            statusMessage.textContent = "";
-        }, 3000); // Clear message after 3 seconds
+        // Update the UI to reflect the change.
+        renderLimits();
+        addLimitForm.reset(); // Clear the input fields.
+        
+        // Provide user feedback.
+        statusMessage.textContent = "Limit added!";
+        setTimeout(() => { statusMessage.textContent = ""; }, 2000);
     }
 });
 
-// Initialize the script
+// Uses event delegation to handle clicks on any "Remove" button in the list.
+limitList.addEventListener('click', async (e) => {
+    // Only act if the clicked element is a remove button.
+    if (e.target.classList.contains('btn-remove')) {
+        const domainToRemove = e.target.dataset.domain;
+        if (currentSettings.timeLimits && currentSettings.timeLimits[domainToRemove]) {
+            delete currentSettings.timeLimits[domainToRemove];
+            await storageManager.saveSettings(currentSettings);
+            
+            // Re-render the UI to show the limit has been removed.
+            renderLimits();
+            
+            statusMessage.textContent = "Limit removed!";
+            setTimeout(() => { statusMessage.textContent = ""; }, 2000);
+        }
+    }
+});
+
+// Handles the click on the "Clear All History" button, a destructive action.
+clearHistoryBtn.addEventListener('click', async () => {
+    // Use a confirmation dialog to prevent accidental data loss.
+    if (confirm("Are you sure you want to delete ALL your browsing history? This cannot be undone.")) {
+        // Clear all data from chrome.storage.local.
+        await chrome.storage.local.clear();
+        // IMPORTANT: Re-save the user's settings, which are also stored in local storage.
+        await storageManager.saveSettings(currentSettings);
+        
+        statusMessage.textContent = "All history cleared!";
+        setTimeout(() => { statusMessage.textContent = ""; }, 2000);
+    }
+});
+
+// Start the script.
 init();

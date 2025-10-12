@@ -1,6 +1,3 @@
-// utils/weekly-reporter.js (Corrected for LanguageModel API)
-// Aggregates browsing data and uses the LanguageModel API to generate insights.
-
 import { getLastDaysData, saveWeeklyReport } from './storage-manager.js';
 
 import { activeTabInfo } from '../background/time-tracker.js';

@@ -1,5 +1,3 @@
-// This module contains custom logic to parse specific, high-traffic websites.
-
 // Helper function to safely get text content from an element.
 function getText(selector) {
     const element = document.querySelector(selector);

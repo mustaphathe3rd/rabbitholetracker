@@ -1,5 +1,16 @@
-// --- MODULE IMPORTS ---
+// popup/popup.js
+// This script is the main controller for the extension's popup UI.
+// It's responsible for fetching and displaying all live data, handling user interactions
+// like button clicks, and managing the voice command interface.
+
+// --- Module Imports ---
+// Global variables to hold the dynamically imported module functions.
 let getWeeklyReport, generateWeeklyReport;
+
+/**
+ * Dynamically imports necessary modules from the extension's background scripts.
+ * This is the required method for UI scripts to access other modules.
+ */
 async function initImports() {
     try {
         const storageManagerSrc = chrome.runtime.getURL('utils/storage-manager.js');
@@ -11,8 +22,14 @@ async function initImports() {
     } catch (error) { console.error("Popup: Failed to import modules", error); }
 }
 
-// --- TIMER LOGIC ---
-let timerInterval = null;
+// --- Helper Functions ---
+let timerInterval = null; // Holds the interval ID for the real-time timer.
+
+/**
+ * Formats a duration in milliseconds into a human-readable string (e.g., "1h 5m 32s").
+ * @param {number} ms - The duration in milliseconds.
+ * @returns {string} The formatted time string.
+ */
 function formatTime(ms) {
     if (ms < 0) ms = 0;
     const totalSeconds = Math.floor(ms / 1000);
@@ -24,6 +41,11 @@ function formatTime(ms) {
     return `${seconds}s`;
 }
 
+/**
+ * Starts a real-time ticking timer that updates a UI element every second.
+ * @param {number} startTime - The Unix timestamp (in ms) when the session started.
+ * @param {HTMLElement} timerElement - The DOM element to update with the elapsed time.
+ */
 function startTimer(startTime, timerElement) {
     if (timerInterval) clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -34,11 +56,11 @@ function startTimer(startTime, timerElement) {
 
 
 // --- MAIN SCRIPT ---
-// All logic is now correctly placed inside this event listener.
+// This event listener is the entry point for the entire script. It runs once the popup HTML is fully loaded.
 document.addEventListener('DOMContentLoaded', async () => {
     await initImports();
     
-    // --- ELEMENT SELECTORS ---
+    // --- ELEMENT SELECTORS (unchanged) ---
     const topicTitleElement = document.getElementById('topic-title');
     const timerElement = document.getElementById('timer');
     const journeyIconsElement = document.getElementById('journey-icons');
@@ -49,7 +71,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sessionReportBtn = document.getElementById('generate-session-report-btn');
     const micButton = document.getElementById('mic-btn');
     const fullReportLink = document.querySelector('.view-report-link');
+    const loadingOverlay = document.getElementById('loading-animation');
+    const loadingMessage = document.getElementById('loading-message');
 
+    /**
+     * Displays a loading animation overlay with a given message.
+     * @param {string} message - The text to display below the animation.
+    */
+     function showLoading(message) {
+        if (loadingOverlay && loadingMessage) {
+            loadingMessage.textContent = message;
+            loadingOverlay.classList.add('active');
+        }
+    }
+    function hideLoading() {
+        if (loadingOverlay) {
+            loadingOverlay.classList.remove('active');
+        }
+    }
 
     // --- VOICE COMMAND SETUP ---
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -68,31 +107,41 @@ document.addEventListener('DOMContentLoaded', async () => {
         recognition.onend = () => { micButton.classList.remove('listening'); micButton.title = "Activate Voice Commands"; };
         recognition.onerror = (event) => { console.error("VOICE: Speech recognition error", event.error); };
 
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript.toLowerCase().trim();
-            console.log("VOICE: Heard:", transcript);
+       recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log("VOICE: Heard:", transcript);
 
-            if (transcript.includes("generate weekly report")) {
-                console.log("VOICE: Executing 'Generate Weekly Report' command.");
-                weeklyReportButton.click(); // Simulate a click on the weekly report button
-            } else if (transcript.includes("generate session report")) {
-                console.log("VOICE: Executing 'Generate Session Report' command.");
-                sessionReportBtn.click(); // Simulate a click on the session report button
-            } else {
-                console.log("VOICE: Command not recognized.");
-            }
-        };
+        function giveFeedback(button) {
+                button.classList.add('active');
+                setTimeout(() => button.classList.remove('active'), 1000);
+         }
+
+        if (transcript.includes("weekly")) {
+            // --- THIS LOG MESSAGE IS UPDATED ---
+            console.log("VOICE: Executing 'Generate Weekly Insight' command.");
+            weeklyReportButton.click();
+        } else if (transcript.includes("session")) {
+            console.log("VOICE: Executing 'Generate Session Report' command.");
+            sessionReportBtn.click(); // The name of this button is still 'Export Session'
+        } else if (transcript.includes("generate report")) {
+            // This default case is also updated
+            console.log("VOICE: Executing 'Generate Weekly Insight' command (default).");
+            weeklyReportButton.click();
+        } else {
+            console.log("VOICE: Command not recognized.");
+        }
+    };
 
     } else {
         console.warn("VOICE: Speech Recognition API not supported in this browser.");
         micButton.style.display = 'none';
     }
-    // --- END OF VOICE COMMAND SETUP ---
 
-
-    // --- EVENT LISTENERS FOR BUTTONS ---
-    weeklyReportButton.onclick = async () => {
-        weeklyReportButton.textContent = 'Generating...';
+    // --- Button Event Listeners ---
+     if (weeklyReportButton) {
+        // Handles the click for generating the weekly AI insight.
+        weeklyReportButton.onclick = async () => {
+        showLoading("Generating Weekly Insight..."); // SHOW ANIMATION
         weeklyReportButton.disabled = true;
         if (generateWeeklyReport) {
             const reportText = await generateWeeklyReport();
@@ -109,30 +158,52 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             insightTextElement.textContent = '🤖 Error: Reporter module not loaded.';
         }
+        hideLoading(); // HIDE ANIMATION
         weeklyReportButton.disabled = false;
     };
+}
 
     if (sessionReportBtn) {
+        // Handles the click for exporting the current session as a report.
         sessionReportBtn.addEventListener('click', () => {
-            sessionReportBtn.textContent = 'Generating...';
+            showLoading("Exporting Your Session..."); // Show animation
             sessionReportBtn.disabled = true;
-            chrome.runtime.sendMessage({ type: 'GENERATE_SESSION_REPORT' });
-            setTimeout(() => {
-                sessionReportBtn.textContent = 'Generate Session Report';
+
+            // Send a message and provide a callback function to handle the response
+            chrome.runtime.sendMessage({ type: 'GENERATE_SESSION_REPORT' }, (response) => {
+                console.log("POPUP: Received response from service worker:", response);
+                // This callback runs *after* the service worker signals that the task is complete.
+                hideLoading(); // Hide animation
                 sessionReportBtn.disabled = false;
-            }, 4000);
+
+                if (response && response.status === 'done') {
+                    sessionReportBtn.textContent = 'Report Created!';
+                } else {
+                    sessionReportBtn.textContent = 'Export Failed';
+                }
+
+                // Reset button text after a few seconds for better UX
+                setTimeout(() => {
+                    sessionReportBtn.textContent = 'Export Session';
+                }, 3000);
+            });
         });
     }
 
     if (fullReportLink) {
+        // Handles the click for the "View Full Report" link.
         fullReportLink.addEventListener('click', (e) => {
             e.preventDefault();
+            // Opens the dedicated summary page in a new tab.
             chrome.tabs.create({ url: chrome.runtime.getURL('summary/summary.html') });
         });
     }
 
 
     // --- INITIAL UI POPULATION ---
+    // This section runs once when the popup opens to fill the UI with the latest data.
+
+    // a. Fetch the last generated weekly report.
     const report = await getWeeklyReport();
     if (report && report.text) {
         insightTextElement.textContent = `🤖 ${report.text}`;
@@ -140,10 +211,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         insightTextElement.textContent = '🤖 Click "Generate Report" to get your first weekly insight!';
     }
 
+    // b. Fetch the current live session data.
     const data = await chrome.storage.session.get('currentSession');
     const session = data.currentSession;
     if (session && session.pages && session.pages.length > 0) {
-        // ... (The code to display the session details is complex and correct, so it's kept the same)
+        // c. If a session exists, display all its details.
         mainContentElement.style.display = 'block';
         noSessionElement.style.display = 'none';
         const latestPage = session.pages[session.pages.length - 1];
@@ -170,6 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         startTimer(session.startTime, timerElement);
 
     } else {
+        // d. If no session is active, show a placeholder message.
         mainContentElement.style.display = 'none';
         noSessionElement.style.display = 'block';
     }

@@ -1,45 +1,47 @@
-// background/blocker-engine.js (FINAL VERSION)
-// Enforces user-defined time limits with robust domain matching.
+// background/blocker-engine.js
+// This module is responsible for enforcing the daily time limits set by the user in the options page.
+// It checks the cumulative time spent on a domain against its configured limit.
 
 import { getSettings, getDomainDataForToday } from '../utils/storage-manager.js';
 
 /**
- * Checks if the time spent on a domain has exceeded the user's limit.
+ * Checks if the cumulative time spent on a given domain today has exceeded the user's defined limit.
+ * This function is called every time a tracking session for a domain ends.
  * @param {string} domain The domain to check (e.g., "www.youtube.com").
  */
 export async function checkTimeLimits(domain) {
-    console.log(`[BLOCKER] Starting check for domain: "${domain}"`);
-
+    // 1. Retrieve the user's saved settings from storage.
     const settings = await getSettings();
     const timeLimits = settings.timeLimits || {};
 
-    // --- THIS IS THE FIX ---
-    // Try to find a limit by matching the exact domain first (e.g., 'www.youtube.com'),
-    // and if that fails, try matching the domain without the 'www.' prefix (e.g., 'youtube.com').
+    // 2. Perform a robust lookup for the domain's time limit.
+    // This handles cases where a user enters 'youtube.com' but visits 'www.youtube.com'.
+    // It first checks for an exact match, then checks for a match without the 'www.' prefix.
     const limitInMinutes = timeLimits[domain] || timeLimits[domain.replace(/^www\./, '')];
-    // --- END OF FIX ---
 
+    // If no limit is set for this domain or its base domain, exit the function.
     if (!limitInMinutes) {
-        console.log(`[BLOCKER] No limit found for "${domain}".`);
         return;
     }
-    console.log(`[BLOCKER] Found limit for "${domain}": ${limitInMinutes} minute(s).`);
 
+    // 3. Retrieve the total time spent on this domain for today.
     const limitInSeconds = limitInMinutes * 60;
     const domainData = await getDomainDataForToday(domain);
-    
     const totalTimeTodayInSeconds = domainData.totalTime || 0;
-    console.log(`[BLOCKER] Comparing Total Time (${totalTimeTodayInSeconds}s) > Limit (${limitInSeconds}s)`);
 
+    // 4. Compare the time spent against the limit and trigger a notification if exceeded.
     if (totalTimeTodayInSeconds > limitInSeconds) {
-        console.log("[BLOCKER] CONDITION MET! Triggering notification.");
         triggerNotification(domain, limitInMinutes);
-    } else {
-        console.log("[BLOCKER] Condition not met.");
     }
 }
 
+/**
+ * Creates and displays a standard Chrome notification to alert the user.
+ * @param {string} domain The domain that exceeded its limit.
+ * @param {number} limitInMinutes The configured time limit in minutes.
+ */
 function triggerNotification(domain, limitInMinutes) {
+    // Use a unique ID to prevent multiple identical notifications from stacking.
     const notificationId = `limit-exceeded-${domain}`;
     chrome.notifications.create(notificationId, {
         type: 'basic',
@@ -48,5 +50,4 @@ function triggerNotification(domain, limitInMinutes) {
         message: `You've spent more than your daily limit of ${limitInMinutes} minutes on ${domain}.`,
         priority: 2
     });
-    console.log(`[BLOCKER] Notification triggered for ${domain}`);
 }

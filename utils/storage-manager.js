@@ -1,6 +1,3 @@
-// utils/storage-manager.js
-// A dedicated module for all interactions with chrome.storage.
-
 /**
  * Saves a record of time spent on a specific URL.
  * It aggregates time by domain for a given day.

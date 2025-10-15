@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "Очистите сохраненную историю просмотров." },
   "clearHistoryButton": { "message": "Очистить всю историю просмотров" },
   "clearHistoryConfirm": { "message": "Вы уверены, что хотите удалить ВСЮ историю просмотров? Это действие нельзя будет отменить." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "Отчет создан!" },
+  "tryAgainLater": { "message": "Попробуйте еще раз позже" },
+  "retryReport": { "message": "Отчет о повторной попытке" }
 }

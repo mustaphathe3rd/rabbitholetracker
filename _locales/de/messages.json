@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "Löschen Sie Ihren gespeicherten Browserverlauf." },
   "clearHistoryButton": { "message": "Gesamten Browserverlauf löschen" },
   "clearHistoryConfirm": { "message": "Möchten Sie Ihren gesamten Browserverlauf wirklich löschen? Dies kann nicht rückgängig gemacht werden." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "Bericht erstellt!" },
+  "tryAgainLater": { "message": "Versuchen Sie es später erneut" },
+  "retryReport": { "message": "Wiederholungsbericht" }
 }

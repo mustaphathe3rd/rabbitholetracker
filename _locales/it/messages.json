@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "Cancella la cronologia di navigazione memorizzata." },
   "clearHistoryButton": { "message": "Cancella tutta la cronologia di navigazione" },
   "clearHistoryConfirm": { "message": "Vuoi davvero eliminare TUTTA la cronologia di navigazione? Questa operazione non può essere annullata." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "Segnalazione generata!" },
+  "tryAgainLater": { "message": "Riprova più tardi" },
+  "retryReport": { "message": "Riprova rapporto" }
 }

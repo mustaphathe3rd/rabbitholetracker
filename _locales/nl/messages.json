@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "Wis uw opgeslagen browsegeschiedenis." },
   "clearHistoryButton": { "message": "Wis alle browsegeschiedenis" },
   "clearHistoryConfirm": { "message": "Weet u zeker dat u AL uw browsegeschiedenis wilt verwijderen? Dit kan niet ongedaan worden gemaakt." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "Rapport gegenereerd!" },
+  "tryAgainLater": { "message": "Probeer het later opnieuw" },
+  "retryReport": { "message": "Rapport opnieuw proberen" }
 }

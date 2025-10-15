@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "Limpe o seu histórico de navegação armazenado." },
   "clearHistoryButton": { "message": "Limpar todo o histórico de navegação" },
   "clearHistoryConfirm": { "message": "Tem a certeza de que pretende eliminar TODO o seu histórico de navegação? Esta ação não pode ser anulada." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "Relatório gerado!" },
+  "tryAgainLater": { "message": "Tente novamente mais tarde" },
+  "retryReport": { "message": "Repetir relatório" }
 }

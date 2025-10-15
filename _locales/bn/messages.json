@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "আপনার সংরক্ষিত ব্রাউজিং ইতিহাস সাফ করুন।" },
   "clearHistoryButton": { "message": "সমস্ত ব্রাউজিং ইতিহাস সাফ করুন" },
   "clearHistoryConfirm": { "message": "আপনি কি নিশ্চিত যে আপনি আপনার সমস্ত ব্রাউজিং ইতিহাস মুছে ফেলতে চান? এটি পূর্বাবস্থায় ফেরানো যাবে না।" },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "রিপোর্ট তৈরি হয়েছে!" },
+  "tryAgainLater": { "message": "পরে আবার চেষ্টা করুন" },
+  "retryReport": { "message": "পুনরায় চেষ্টা রিপোর্ট" }
 }

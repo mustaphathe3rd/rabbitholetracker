@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "저장된 검색 기록을 지우세요." },
   "clearHistoryButton": { "message": "모든 검색 기록 지우기" },
   "clearHistoryConfirm": { "message": "모든 검색 기록을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "보고서가 생성되었습니다!" },
+  "tryAgainLater": { "message": "나중에 다시 시도하세요" },
+  "retryReport": { "message": "재시도 보고서" }
 }

@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "अपना संग्रहीत ब्राउज़िंग इतिहास साफ़ करें." },
   "clearHistoryButton": { "message": "सभी ब्राउज़िंग इतिहास साफ़ करें" },
   "clearHistoryConfirm": { "message": "क्या आप वाकई अपना पूरा ब्राउज़िंग इतिहास मिटाना चाहते हैं? इसे पूर्ववत नहीं किया जा सकता।" },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "रिपोर्ट तैयार!" },
+  "tryAgainLater": { "message": "बाद में पुन: प्रयास" },
+  "retryReport": { "message": "पुनः प्रयास रिपोर्ट" }
 }

@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "Hapus riwayat penelusuran yang tersimpan." },
   "clearHistoryButton": { "message": "Hapus Semua Riwayat Penjelajahan" },
   "clearHistoryConfirm": { "message": "Yakin ingin menghapus SEMUA riwayat penelusuran Anda? Tindakan ini tidak dapat dibatalkan." },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "Laporan Dibuat!" },
+  "tryAgainLater": { "message": "Coba Lagi Nanti" },
+  "retryReport": { "message": "Laporan Percobaan Ulang" }
 }

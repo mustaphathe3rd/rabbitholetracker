@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "清除您存储的浏览历史记录。" },
   "clearHistoryButton": { "message": "清除所有浏览历史记录" },
   "clearHistoryConfirm": { "message": "您确定要删除所有浏览历史记录吗？此操作无法撤消。" },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "报告已生成！" },
+  "tryAgainLater": { "message": "稍后再试" },
+  "retryReport": { "message": "重试报告" }
 }

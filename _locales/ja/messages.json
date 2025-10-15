@@ -70,7 +70,7 @@
   "dataManagementDescription": { "message": "保存されている閲覧履歴を消去します。" },
   "clearHistoryButton": { "message": "すべての閲覧履歴を消去" },
   "clearHistoryConfirm": { "message": "すべての閲覧履歴を削除してもよろしいですか？ 元に戻すことはできません。" },
-   "reportGenerated": { "message": "Report Generated!" },
-  "tryAgainLater": { "message": "Try Again Later" },
-  "retryReport": { "message": "Retry Report" }
+   "reportGenerated": { "message": "レポートが生成されました!" },
+  "tryAgainLater": { "message": "後でもう一度お試しください" },
+  "retryReport": { "message": "再試行レポート" }
 }

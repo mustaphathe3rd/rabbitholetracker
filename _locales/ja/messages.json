@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "ラビットホールトラッカー"
+    },
+    "LiveSession": {
+        "message": "ライブセッション"
+    },
+    "currentTopic": {
+        "message": "現在のトピック"
+    },
+    "journey": {
+        "message": "旅路:"
+    },
+    "exportSession": {
+        "message": "エクスポートセッション"
+    },
+    "weeklyInsights": {
+        "message": "ウィークリーインサイト"
+    },
+    "generateWeeklyInsight": {
+        "message": "毎週の洞察を生成する"
+    },
+    "weeklyInsightPrompt": {
+        "message": "あなたは、ユーザーの閲覧データをレビューする、生産性分析の専門家です。目標は、具体的で、一般的な情報にとらわれず、洞察に富んだ概要を提供することです。\n\n以下は、上位のドメインと、それぞれのドメインで費やされた合計時間（秒）を示すデータです。\n$1\n\nこのデータに基づいて、以下の分析を行ってください。\n1. 最も多くの時間を費やしている、または「うっかり穴」となっているドメインを特定してください。\n2. ユーザーがそのサイトで多くの時間を費やしている理由（例：Gemini を詳細な調査に使用しているようですが、これは素晴らしいことですが、セッションが長くなる可能性があります。）を提案してください。\n3. 「タイマーを使う」といった一般的なアドバイスにとどまらず、特定のサイトでの時間管理に役立つ、独創的で独創的な提案をしてください。\n\nこれらのポイントを、約100語の分かりやすい段落にまとめてください。"
+    },
+    "sessionReportPrompt": {
+        "message": "あなたは優れたライター兼アナリストです。あなたの課題は、以下の生の閲覧データをMarkdownを使用して、簡潔で一貫性のある記事（単なるリストではなく）にまとめることです。\n\n閲覧セッションのデータは次のとおりです:\n---\n$1\n---\n\n以下の作業を行ってください:\n1. ユーザーの探索の旅の主要テーマを捉えた、洞察力のある記事のタイトルを作成します。\n2. 全体のテーマを要約した、簡潔な導入段落を作成します。\n3. 主要なトピックまたは訪問したWebサイトごとに、探索内容を説明する短い段落を作成し、可能な場合は異なるページ間の関連性を示します。\n4. 書式設定にはMarkdownを使用します（例：タイトルには#、小見出しには##、斜体には*）。"
+    },
+       "viewFullReport": { 
+        "message": "完全なレポートを見る→" 
+    },
+    "yourWeeklyReport": { "message": "週次レポート" },
+    "aiPoweredInsight": { "message": "AIを活用した洞察" },
+  "topDomainsByTime": { "message": "利用時間上位のドメイン" },
+  "doughnut": { "message": "ドーナツグラフ" },
+  "pie": { "message": "円グラフ" },
+  "bar": { "message": "棒グラフ" },
+  "blockPageTitle": {
+    "message": "時間切れです！"
+  },
+  "blockPageHeader": {
+    "message": "時間予算超過"
+  },
+  "blockPageMessage": {
+    "message": "$site$ の 1 日のアクティブ時間制限を超えました。" ,
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "これは基本的なブロッキング基盤です。より高度なオーバーライドオプションは後日利用可能になります。"
+  },
+   "topicSynthesisPrompt": {
+    "message": "ブラウジングセッションから次のキーワードを分析してください: [$1]。あなたの唯一の課題は、このセッションの簡潔で説明的なタイトルを生成することです。タイトルは8語以内でなければなりません。その他のテキスト、前文、説明、引用文は含めないでください。タイトルテキストのみを入力してください。"
+  },
+  "timeSpentMinutes": { "message": "所要時間（分）" },
+  "totalTime": { "message": "合計時間" },
+  "loadingWeeklyInsight": { "message": "毎週の洞察を生成しています..." },
+  "loadingExportSession": { "message": "セッションをエクスポートしています..." },
+  "optionsTitle": { "message": "ラビットホールトラッカーのオプション" },
+  "timeLimits": { "message": "時間制限" },
+  "timeLimitsDescription": { "message": "特定の Web サイトの毎日の時間制限を追加または削除します。" },
+  "domainPlaceholder": { "message": "例：youtube.com" },
+  "minsPlaceholder": { "message": "分" },
+  "removeButton": { "message": "取り除く" },
+  "dataManagement": { "message": "データ管理" },
+  "dataManagementDescription": { "message": "保存されている閲覧履歴を消去します。" },
+  "clearHistoryButton": { "message": "すべての閲覧履歴を消去" },
+  "clearHistoryConfirm": { "message": "すべての閲覧履歴を削除してもよろしいですか？ 元に戻すことはできません。" },
+   "reportGenerated": { "message": "Report Generated!" },
+  "tryAgainLater": { "message": "Try Again Later" },
+  "retryReport": { "message": "Retry Report" }
+}

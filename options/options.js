@@ -22,6 +22,39 @@ async function init() {
     }
 }
 
+
+/**
+ * Applies translations to the page.
+ */
+function applyTranslations() {
+    // Translate static elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translatedText = chrome.i18n.getMessage(key);
+        if (translatedText) element.textContent = translatedText;
+    });
+
+    // Translate placeholder attributes
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        const translatedText = chrome.i18n.getMessage(key);
+        if (translatedText) element.placeholder = translatedText;
+    });
+
+    // Translate the page title
+    document.title = chrome.i18n.getMessage("optionsTitle");
+}
+
+async function init() {
+    // Apply translations as soon as the script starts
+    applyTranslations();
+    try {
+        const src = chrome.runtime.getURL('utils/storage-manager.js');
+        storageManager = await import(src);
+        loadSettings();
+    } catch (e) { console.error(e); }
+}
+
 // --- DOM Element References ---
 const limitList = document.getElementById('limit-list');
 const addLimitForm = document.getElementById('add-limit-form');
@@ -41,6 +74,7 @@ function renderLimits() {
     limitList.innerHTML = '';
     const timeLimits = currentSettings.timeLimits || {};
     // Loop through each saved limit and create a list item for it.
+    const removeButtonText = chrome.i18n.getMessage("removeButton");
     for (const domain in timeLimits) {
         const li = document.createElement('li');
         // Using a template literal to easily create the HTML structure for each list item.
@@ -49,7 +83,7 @@ function renderLimits() {
                 <span class="limit-domain">${domain}</span>
                 <span class="limit-time">- ${timeLimits[domain]} min/day</span>
             </div>
-            <button class="btn-remove" data-domain="${domain}">Remove</button>
+            <button class="btn-remove" data-domain="${domain}">${removeButtonText}</button>
         `;
         limitList.appendChild(li);
     }
@@ -84,7 +118,7 @@ addLimitForm.addEventListener('submit', async (e) => {
         addLimitForm.reset(); // Clear the input fields.
         
         // Provide user feedback.
-        statusMessage.textContent = "Limit added!";
+        statusMessage.textContent = "✓";
         setTimeout(() => { statusMessage.textContent = ""; }, 2000);
     }
 });
@@ -100,8 +134,8 @@ limitList.addEventListener('click', async (e) => {
             
             // Re-render the UI to show the limit has been removed.
             renderLimits();
-            
-            statusMessage.textContent = "Limit removed!";
+
+            statusMessage.textContent = "✓";
             setTimeout(() => { statusMessage.textContent = ""; }, 2000);
         }
     }
@@ -109,14 +143,15 @@ limitList.addEventListener('click', async (e) => {
 
 // Handles the click on the "Clear All History" button, a destructive action.
 clearHistoryBtn.addEventListener('click', async () => {
+    const confirmationMessage = chrome.i18n.getMessage("clearHistoryConfirm");
     // Use a confirmation dialog to prevent accidental data loss.
-    if (confirm("Are you sure you want to delete ALL your browsing history? This cannot be undone.")) {
+    if (confirm(confirmationMessage)) {
         // Clear all data from chrome.storage.local.
         await chrome.storage.local.clear();
         // IMPORTANT: Re-save the user's settings, which are also stored in local storage.
         await storageManager.saveSettings(currentSettings);
         
-        statusMessage.textContent = "All history cleared!";
+        statusMessage.textContent = "✓";
         setTimeout(() => { statusMessage.textContent = ""; }, 2000);
     }
 });

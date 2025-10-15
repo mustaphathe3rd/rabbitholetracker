@@ -18,6 +18,22 @@ async function getStorageManager() {
 }
 
 /**
+ * NEW: A function to apply translations to the UI.
+ * It finds all elements with a 'data-i18n' attribute and replaces their text
+ * with the message from the _locales folder.
+ */
+function applyTranslations() {
+    const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+    elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translatedText = chrome.i18n.getMessage(key);
+        if (translatedText) {
+            element.textContent = translatedText;
+        }
+    });
+}
+
+/**
  * Processes the raw weekly data from storage and aggregates it by domain.
  * @param {object} weeklyData - The raw data object from chrome.storage.local.
  * @returns {Array} - A sorted array containing the top 7 domains and their total time spent.
@@ -85,13 +101,15 @@ function renderChart(chartType, chartData, totalTimeMinutes) {
     const dataMinutes = chartData.map(item => Math.round(item[1] / 60));
     const isCircular = chartType === 'doughnut' || chartType === 'pie';
 
+    const chartLabel = chrome.i18n.getMessage("timeSpentMinutes");
+
     chartInstance = new Chart(chartCanvas, {
         type: chartType,
         plugins: [centerTextPlugin],
         data: {
             labels: labels,
             datasets: [{
-                label: 'Time Spent (minutes)',
+                label: chartLabel,
                 data: dataMinutes,
                 backgroundColor: ['#4CAF50', '#FFC107', '#2196F3', '#F44336', '#9C27B0', '#00BCD4', '#FF9800'],
                 borderColor: '#2d2d2d',
@@ -131,7 +149,7 @@ function renderChart(chartType, chartData, totalTimeMinutes) {
                 centerText: {
                     display: chartType === 'doughnut',
                     mainText: `${totalTimeMinutes} min`,
-                    subText: 'Total Time'
+                    subText: chrome.i18n.getMessage("totalTime")
                 }
             }
         }
@@ -141,6 +159,9 @@ function renderChart(chartType, chartData, totalTimeMinutes) {
 // --- Main Script ---
 // Runs once the summary page HTML is fully loaded.
 document.addEventListener('DOMContentLoaded', async () => {
+
+    applyTranslations();
+
     // ... (fetch weeklyReport and weeklyData from storage)
     const insightTextElement = document.getElementById('insight-text');
     const storageManager = await getStorageManager();

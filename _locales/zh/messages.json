@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "兔子洞追踪器"
+    },
+    "LiveSession": {
+        "message": "现场会议"
+    },
+    "currentTopic": {
+        "message": "当前主题"
+    },
+    "journey": {
+        "message": "旅行："
+    },
+    "exportSession": {
+        "message": "导出会话"
+    },
+    "weeklyInsights": {
+        "message": "每周洞察"
+    },
+    "generateWeeklyInsight": {
+        "message": "生成每周洞察"
+    },
+    "weeklyInsightPrompt": {
+        "message": "您是一位专业的生产力分析师，正在审查用户的浏览数据。您的目标是提供一份具体、非通用且富有洞察力的摘要。\n\n以下数据显示了最热门的域名以及在每个域名上花费的总时间（以秒为单位）：$1\n\n基于此数据，请执行以下分析：\n1. 找出最耗时或“兔子洞”的域名。\n2. 提出一个用户在该域名上花费如此多时间的潜在原因（例如，“您似乎使用 Gemini 进行深入研究，这很好，但可能会导致长时间的会话。\n”）。\n3. 提供独特且富有创意的建议，帮助他们管理在该特定网站上的时间，而不仅仅是“使用计时器”之类的通用建议。\n\n将这些要点整合成一个约 100 字的简洁明了的段落。"
+    },
+    "sessionReportPrompt": {
+        "message": "你是一位经验丰富的作家和分析师。你的任务是使用 Markdown 将以下原始浏览数据整合成一篇简短、连贯的文章（而不仅仅是一个列表）。\n\n以下是浏览会话的数据：\n---\n$1\n---\n\n请执行以下操作：\n1. 为文章创建一个富有洞察力的标题，以抓住用户探索之旅的主题。\n2. 撰写一个简短的引言段落，概述整体主题。\n3. 对于访问过的每个主要主题或网站，写一小段文字来解释所探索的内容，并尽可能在不同页面之间建立联系。\n4. 使用 Markdown 进行格式化（例如，# 表示标题，## 表示副标题，* 表示斜体）。"
+    },
+       "viewFullReport": { 
+        "message": "查看完整报告 →" 
+    },
+    "yourWeeklyReport": { "message": "您的每周报告" },
+    "aiPoweredInsight": { "message": "人工智能洞察" },
+  "topDomainsByTime": { "message": "按访问时间排序的热门域名" },
+  "doughnut": { "message": "圆环图" },
+  "pie": { "message": "饼图" },
+  "bar": { "message": "条形图" },
+  "blockPageTitle": {
+    "message": "时间到了！"
+  },
+  "blockPageHeader": {
+    "message": "超出时间预算"
+  },
+  "blockPageMessage": {
+    "message": "你已经超出了$site$的每日活跃时间限制。" ,
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "这是基本的阻塞基础。更多高级覆盖选项稍后将推出！"
+  },
+   "topicSynthesisPrompt": {
+    "message": "分析浏览会话中的这些关键词：[$1]。您的唯一任务是为本次会话生成一个简洁、描述性的标题。标题必须少于 8 个字。请勿包含任何其他文字、序言、解释或引言。只需提供标题文本即可。"
+  },
+  "timeSpentMinutes": { "message": "花费时间（分钟）" },
+  "totalTime": { "message": "总时间" },
+  "loadingWeeklyInsight": { "message": "生成每周见解..." },
+  "loadingExportSession": { "message": "正在导出您的会话..." },
+  "optionsTitle": { "message": "兔子洞追踪器选项" },
+  "timeLimits": { "message": "时间限制" },
+  "timeLimitsDescription": { "message": "添加或删除特定网站的每日时间限制。" },
+  "domainPlaceholder": { "message": "例如 youtube.com" },
+  "minsPlaceholder": { "message": "分钟" },
+  "removeButton": { "message": "消除" },
+  "dataManagement": { "message": "数据管理" },
+  "dataManagementDescription": { "message": "清除您存储的浏览历史记录。" },
+  "clearHistoryButton": { "message": "清除所有浏览历史记录" },
+  "clearHistoryConfirm": { "message": "您确定要删除所有浏览历史记录吗？此操作无法撤消。" },
+   "reportGenerated": { "message": "Report Generated!" },
+  "tryAgainLater": { "message": "Try Again Later" },
+  "retryReport": { "message": "Retry Report" }
+}

@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "Kaninchenloch-Tracker"
+    },
+    "LiveSession": {
+        "message": "Live-Sitzung"
+    },
+    "currentTopic": {
+        "message": "AKTUELLES THEMA"
+    },
+    "journey": {
+        "message": "Reise:"
+    },
+    "exportSession": {
+        "message": "Sitzung exportieren"
+    },
+    "weeklyInsights": {
+        "message": "Wöchentliche Einblicke"
+    },
+    "generateWeeklyInsight": {
+        "message": "Wöchentliche Einblicke generieren"
+    },
+    "weeklyInsightPrompt": {
+        "message": "Sie sind ein erfahrener Produktivitätsanalyst und überprüfen die Browserdaten eines Benutzers. Ihr Ziel ist es, eine spezifische, nicht generische und aufschlussreiche Zusammenfassung bereitzustellen.\n\nHier sind die Daten mit den wichtigsten Domänen und der jeweils verbrachten Gesamtzeit in Sekunden:\n$1\n\nFühren Sie anhand dieser Daten die folgende Analyse durch:\n1. Identifizieren Sie die Domäne, die am meisten Zeit verbraucht oder die „Kaninchenhöhle“ ist.\n2. Nennen Sie einen möglichen Grund, *warum* der Benutzer dort möglicherweise so viel Zeit verbringt (z. B. „Sie verwenden Gemini anscheinend für ausführliche Recherchen, was zwar großartig ist, aber zu langen Sitzungen führen kann.“.\n3. Machen Sie einen einzigartigen und kreativen Vorschlag, der dem Benutzer dabei hilft, seine Zeit auf dieser bestimmten Website einzuteilen, und gehen Sie dabei über allgemeine Ratschläge wie „Verwenden Sie einen Timer“ hinaus.\n\nFassen Sie diese Punkte in einem einzigen, freundlichen Absatz mit etwa 100 Wörtern zusammen."
+    },
+    "sessionReportPrompt": {
+        "message": "Sie sind ein erfahrener Autor und Analytiker. Ihre Aufgabe ist es, die folgenden Rohdaten Ihres Browsers mithilfe von Markdown in einen kurzen, zusammenhängenden Artikel (nicht nur eine Liste) zu synthetisieren.\n\nHier sind die Daten der Browsersitzung:\n---\n$1\n---\n\nBitte gehen Sie wie folgt vor:\n1. Erstellen Sie einen aussagekräftigen Titel für den Artikel, der das Hauptthema der Entdeckungsreise des Benutzers erfasst.\n2. Schreiben Sie einen kurzen einführenden Absatz, der das Gesamtthema zusammenfasst.\n3. Schreiben Sie für jedes Hauptthema oder jede besuchte Website einen kurzen Absatz, der erklärt, was erkundet wurde, und stellen Sie nach Möglichkeit Verbindungen zwischen den verschiedenen Seiten her.\n4. Verwenden Sie Markdown zur Formatierung (z. B. # für den Titel, ## für Unterüberschriften, * für Kursivschrift)."
+    },
+       "viewFullReport": { 
+        "message": "Vollständigen Bericht anzeigen →" 
+    },
+    "yourWeeklyReport": { "message": "Ihr wöchentlicher Bericht" },
+    "aiPoweredInsight": { "message": "KI-gestützte Erkenntnisse" },
+  "topDomainsByTime": { "message": "Top-Domains nach Verweildauer" },
+  "doughnut": { "message": "Donut-Diagramm" },
+  "pie": { "message": "Kreisdiagramm" },
+  "bar": { "message": "Balkendiagramm" },
+  "blockPageTitle": {
+    "message": "Die Zeit ist um!"
+  },
+  "blockPageHeader": {
+    "message": "Zeitbudget überschritten"
+  },
+  "blockPageMessage": {
+    "message": "Sie haben Ihr tägliches aktives Zeitlimit für $site$ überschritten.",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "Dies ist eine grundlegende Blockierungsgrundlage. Erweiterte Überschreibungsoptionen werden später verfügbar sein!"
+  },
+   "topicSynthesisPrompt": {
+    "message": "Analysieren Sie die folgenden Schlüsselwörter aus einer Browsersitzung: [$1]. Ihre einzige Aufgabe besteht darin, einen prägnanten, beschreibenden Titel für diese Sitzung zu erstellen. Der Titel darf nicht länger als 8 Wörter sein. Fügen Sie KEINEN weiteren Text, keine Einleitungen, Erklärungen oder Zitate ein. Geben Sie lediglich den Titeltext ein."
+  },
+  "timeSpentMinutes": { "message": "Verbrachte Zeit (Minuten)" },
+  "totalTime": { "message": "Gesamtzeit" },
+  "loadingWeeklyInsight": { "message": "Wöchentliche Erkenntnisse generieren ..." },
+  "loadingExportSession": { "message": "Ihre Sitzung wird exportiert …" },
+  "optionsTitle": { "message": "Rabbithole Tracker-Optionen" },
+  "timeLimits": { "message": "Zeitlimits" },
+  "timeLimitsDescription": { "message": "Fügen Sie tägliche Zeitlimits für bestimmte Websites hinzu oder entfernen Sie sie." },
+  "domainPlaceholder": { "message": "z. B. youtube.com" },
+  "minsPlaceholder": { "message": "Minuten" },
+  "removeButton": { "message": "Entfernen" },
+  "dataManagement": { "message": "Datenmanagement" },
+  "dataManagementDescription": { "message": "Löschen Sie Ihren gespeicherten Browserverlauf." },
+  "clearHistoryButton": { "message": "Gesamten Browserverlauf löschen" },
+  "clearHistoryConfirm": { "message": "Möchten Sie Ihren gesamten Browserverlauf wirklich löschen? Dies kann nicht rückgängig gemacht werden." },
+   "reportGenerated": { "message": "Report Generated!" },
+  "tryAgainLater": { "message": "Try Again Later" },
+  "retryReport": { "message": "Retry Report" }
+}

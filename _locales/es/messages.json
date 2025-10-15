@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "Rastreador de Rabbithole"
+    },
+    "LiveSession": {
+        "message": "Sesión en Vivo"
+    },
+    "currentTopic": {
+        "message": "TEMA ACTUAL"
+    },
+    "journey": {
+        "message": "Recorrido:"
+    },
+    "exportSession": {
+        "message": "Exportar Sesión"
+    },
+    "weeklyInsights": {
+        "message": "Análisis Semanal"
+    },
+    "generateWeeklyInsight": {
+        "message": "Generar Análisis Semanal"
+    },
+    "weeklyInsightPrompt": {
+        "message": "Eres un analista experto en productividad que revisa los datos de navegación de un usuario. Tu objetivo es ofrecer un resumen específico, no genérico y perspicaz.\n\nAquí tienes los datos, que muestran los dominios principales y el tiempo total en segundos dedicado a cada uno:\n$1\n\nCon base en estos datos, realiza el siguiente análisis:\n1. Identifica el dominio que más tiempo consume o el dominio que se convierte en una madriguera.\n2. Sugiere una posible razón *por la que* el usuario podría pasar tanto tiempo allí (por ejemplo, \"Parece que usas Gemini para investigación exhaustiva, lo cual es genial, pero puede llevar a sesiones largas\").\n3. Ofrece una sugerencia original y creativa para ayudarles a gestionar su tiempo en ese sitio web específico, que vaya más allá de consejos genéricos como \"usar un temporizador\".\n\nCombina estos puntos en un único párrafo conciso de unas 100 palabras."
+    },
+    "sessionReportPrompt": {
+        "message": "Eres un escritor y analista experto. Tu tarea consiste en sintetizar los siguientes datos de navegación sin procesar en un artículo breve y coherente (no solo una lista) usando Markdown.\n\nAquí están los datos de la sesión de navegación:\n---\n$1\n---\n\nPor favor, haz lo siguiente:\n1. Crea un título perspicaz para el artículo que capture el tema principal del recorrido de descubrimiento del usuario.\n2. Escribe un breve párrafo introductorio que resuma el tema general.\n3. Para cada tema o sitio web principal visitado, escribe un párrafo breve que explique lo explorado, estableciendo conexiones entre las diferentes páginas siempre que sea posible.\n4. Usa Markdown para el formato (p. ej., # para el título, ## para los subtítulos, * para cursiva)."
+    },
+    "viewFullReport": { 
+        "message": "Ver Informe Completo →" 
+    },
+    "yourWeeklyReport": { "message": "Tu Informe Semanal" },
+  "aiPoweredInsight": { "message": "Análisis con IA" },
+  "topDomainsByTime": { "message": "Dominios Principales por Tiempo" },
+  "doughnut": { "message": "Dona" },
+  "pie": { "message": "Pastel" },
+  "bar": { "message": "Barra" },
+   "blockPageTitle": {
+    "message": "¡Se Acabó el Tiempo!"
+  },
+  "blockPageHeader": {
+    "message": "Límite de Tiempo Excedido"
+  },
+   "blockPageMessage": {
+    "message": "Has superado tu límite de tiempo diario para $site$." ,
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "Esta es la base del bloqueo. ¡Opciones de anulación más avanzadas estarán disponibles más tarde!"
+  },
+  "topicSynthesisPrompt": {
+    "message": "Analiza estas palabras clave de una sesión de navegación: [$1]. Tu única tarea es generar un título conciso y descriptivo para esta sesión. El título debe tener menos de 8 palabras. NO incluyas ningún otro texto, preámbulos, explicaciones o citas. Solo proporciona el texto del título."
+  },
+  "timeSpentMinutes": { "message": "Tiempo Invertido (minutos)" },
+  "totalTime": { "message": "Tiempo Total" },
+    "loadingWeeklyInsight": { "message": "Generando Análisis Semanal..." },
+  "loadingExportSession": { "message": "Exportando Tu Sesión..." },
+  "optionsTitle": { "message": "Opciones de Rabbithole Tracker" },
+  "timeLimits": { "message": "Límites de Tiempo" },
+  "timeLimitsDescription": { "message": "Añadir o eliminar límites de tiempo diarios para sitios web específicos." },
+  "domainPlaceholder": { "message": "ej., youtube.com" },
+  "minsPlaceholder": { "message": "Mins" },
+  "removeButton": { "message": "Eliminar" },
+  "dataManagement": { "message": "Gestión de Datos" },
+  "dataManagementDescription": { "message": "Borrar tu historial de navegación almacenado." },
+  "clearHistoryButton": { "message": "Borrar Todo el Historial de Navegación" },
+  "clearHistoryConfirm": { "message": "¿Estás seguro de que quieres borrar TODO tu historial de navegación? Esta acción no se puede deshacer." },
+  "reportGenerated": { "message": "¡Informe Generado!" },
+  "tryAgainLater": { "message": "Intentar Más Tarde" },
+  "retryReport": { "message": "Reintentar Informe" }
+}

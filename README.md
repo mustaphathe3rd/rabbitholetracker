@@ -33,6 +33,8 @@ We've all been there. You start by looking up one simple thing, and three hours 
 * **Voice Commands (Multimodal):** Use your voice to generate weekly or session reports.
 * **PDF Export:** Export your AI-generated session reports as a clean, print-friendly PDF.
 * **Light & Fun "Bunny" Theme:** A custom white, pink, and purple color palette for a unique and friendly feel.
+* 🌐 **Internationalization (i18n):** The entire extension, including the UI and the AI-generated insights, automatically adapts to the user's browser language (supports English, Spanish, and Portuguese).
+
 
 ---
 
@@ -50,6 +52,7 @@ We've all been there. You start by looking up one simple thing, and three hours 
 
 * **Platform:** Chrome Extension (Manifest V3)
 * **Language:** JavaScript (ES Modules)
+* **Internationalization:** Chrome's `i18n` API with `_locales` for language-specific strings.
 * **Core APIs:**
     * Chrome Extension APIs (`storage`, `tabs`, `notifications`, `scripting`, `idle`)
     * Web Speech API (for voice commands)

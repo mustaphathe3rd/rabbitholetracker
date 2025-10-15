@@ -51,20 +51,7 @@ export async function generateSessionReport() {
     // 4. Craft a detailed, multi-step prompt for the Writer API.
     // This is a key part of the "prompt engineering" process. We give the AI a clear role ("skilled writer"),
     // provide the raw data, and give it a specific set of instructions on how to format the output as a Markdown article.
-    const prompt = `
-        You are a skilled writer and analyst. Your task is to synthesize the following raw browsing data into a short, coherent article (not just a list) using Markdown.
-
-        Here is the data from the browsing session:
-        ---
-        ${promptData}
-        ---
-
-        Please do the following:
-        1.  Create an insightful title for the article that captures the main theme of the user's journey of discovery.
-        2.  Write a brief introductory paragraph that summarizes the overall theme.
-        3.  For each major topic or website visited, write a small paragraph that explains what was explored, drawing connections between the different pages where possible.
-        4.  Use Markdown for formatting (e.g., # for the title, ## for subheadings, * for italics).
-    `;
+    const prompt = chrome.i18n.getMessage("sessionReportPrompt", [promptData]);
 
     // 5. Call the Writer API and display the result.
     try {

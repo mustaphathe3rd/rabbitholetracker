@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "Konijnenhol Tracker"
+    },
+    "LiveSession": {
+        "message": "Live sessie"
+    },
+    "currentTopic": {
+        "message": "ACTUEEL ONDERWERP"
+    },
+    "journey": {
+        "message": "Reis:"
+    },
+    "exportSession": {
+        "message": "Sessie exporteren"
+    },
+    "weeklyInsights": {
+        "message": "Wekelijkse inzichten"
+    },
+    "generateWeeklyInsight": {
+        "message": "Genereer wekelijks inzicht"
+    },
+    "weeklyInsightPrompt": {
+        "message": "Je bent een deskundige productiviteitsanalist die de browsegegevens van een gebruiker beoordeelt. Je doel is om een ​​specifieke, niet-algemene en inzichtelijke samenvatting te geven.\n\nHier zijn de gegevens, met de topdomeinen en de totale tijd in seconden die op elk domein is doorgebracht:\n$1\n\nVoer op basis van deze gegevens de volgende analyse uit:\n1. Identificeer het grootste tijdsintensieve domein of \"rabbithole\"-domein.\n2. Stel een mogelijke reden voor *waarom* de gebruiker er zoveel tijd aan besteedt (bijv. \"Het lijkt erop dat je Gemini gebruikt voor diepgaand onderzoek, wat geweldig is, maar kan leiden tot lange sessies.\").\n3. Geef een unieke en creatieve suggestie om de gebruiker te helpen zijn tijd op die specifieke site te beheren, en ga daarbij verder dan algemeen advies zoals \"gebruik een timer\".\n\nCombineer deze punten in één korte, vriendelijke alinea van ongeveer 100 woorden."
+    },
+    "sessionReportPrompt": {
+        "message": "Je bent een ervaren schrijver en analist. Je taak is om de volgende ruwe browsegegevens samen te vatten in een kort, samenhangend artikel (niet zomaar een lijst) met behulp van Markdown.\n\nHier zijn de gegevens van de browsesessie:\n---\n$1\n---\n\nDoe het volgende:\n1. Bedenk een verhelderende titel voor het artikel die het hoofdthema van de ontdekkingsreis van de gebruiker weergeeft.\n2. Schrijf een korte inleidende alinea die het algemene thema samenvat.\n3. Schrijf voor elk belangrijk onderwerp of elke bezochte website een korte alinea waarin je uitlegt wat er is onderzocht en leg waar mogelijk verbanden tussen de verschillende pagina's.\n4. Gebruik Markdown voor de opmaak (bijv. # voor de titel, ## voor subkoppen, * voor cursief)."
+    },
+       "viewFullReport": { 
+        "message": "Bekijk het volledige rapport →" 
+    },
+    "yourWeeklyReport": { "message": "Uw wekelijkse rapport" },
+    "aiPoweredInsight": { "message": "AI-aangedreven inzicht" },
+  "topDomainsByTime": { "message": "Topdomeinen op basis van bestede tijd" },
+  "doughnut": { "message": "Donutdiagram" },
+  "pie": { "message": "Cirkeldiagram" },
+  "bar": { "message": "Staafdiagram" },
+  "blockPageTitle": {
+    "message": "De tijd is om!"
+  },
+  "blockPageHeader": {
+    "message": "Tijdsbudget overschreden"
+  },
+  "blockPageMessage": {
+    "message": "U hebt de dagelijkse actieve tijdslimiet voor $site$ overschreden.",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "Dit is een basisprincipe voor blokkering. Geavanceerdere override-opties zullen later beschikbaar zijn!"
+  },
+   "topicSynthesisPrompt": {
+    "message": "Analyseer deze zoekwoorden uit een browsersessie: [$1]. Je enige taak is om een ​​beknopte, beschrijvende titel voor deze sessie te bedenken. De titel moet korter zijn dan 8 woorden. Voeg GEEN andere tekst, inleidingen, uitleg of citaten toe. Geef alleen de titeltekst."
+  },
+  "timeSpentMinutes": { "message": "Bestede tijd (minuten)" },
+  "totalTime": { "message": "Totale tijd" },
+  "loadingWeeklyInsight": { "message": "Wekelijks inzicht genereren..." },
+  "loadingExportSession": { "message": "Uw sessie exporteren..." },
+  "optionsTitle": { "message": "Konijnenhol Tracker-opties" },
+  "timeLimits": { "message": "Tijdslimieten" },
+  "timeLimitsDescription": { "message": "Voeg dagelijkse tijdslimieten voor specifieke websites toe of verwijder deze." },
+  "domainPlaceholder": { "message": "bijvoorbeeld youtube.com" },
+  "minsPlaceholder": { "message": "Minuten" },
+  "removeButton": { "message": "Verwijderen" },
+  "dataManagement": { "message": "Gegevensbeheer" },
+  "dataManagementDescription": { "message": "Wis uw opgeslagen browsegeschiedenis." },
+  "clearHistoryButton": { "message": "Wis alle browsegeschiedenis" },
+  "clearHistoryConfirm": { "message": "Weet u zeker dat u AL uw browsegeschiedenis wilt verwijderen? Dit kan niet ongedaan worden gemaakt." },
+   "reportGenerated": { "message": "Report Generated!" },
+  "tryAgainLater": { "message": "Try Again Later" },
+  "retryReport": { "message": "Retry Report" }
+}

@@ -96,7 +96,10 @@ export async function addPageVisitToSession(pageData) {
             
             // f. If we have enough keywords, ask the AI to synthesize a more insightful, high-level topic.
             if (topKeywords.length > 1 && self.LanguageModel) {
-                const synthesisPrompt = `Based on these keywords from a browsing session: [${topKeywords.join(', ')}], generate a short, descriptive title for the session, no more than 8 words.`;
+                const synthesisPrompt = chrome.i18n.getMessage("topicSynthesisPrompt", [
+                    topKeywords.join(', ')
+                ]);
+                
                 try {
                     const availability = await self.LanguageModel.availability();
                     if (availability === 'available' || availability === 'readily') {

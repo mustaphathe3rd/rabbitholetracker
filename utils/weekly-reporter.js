@@ -30,20 +30,9 @@ export async function generateWeeklyReport() {
     const dataSummary = summarizeDataForAI(weeklyData);
 
     // 3. Craft a detailed prompt for the AI.
-     const prompt = `
-        You are an expert productivity analyst reviewing a user's browsing data.
-        Your goal is to provide a specific, non-generic, and insightful summary.
-
-        Here is the data, showing the top domains and total time in seconds spent on each:
-        ${JSON.stringify(dataSummary, null, 2)}
-
-        Based on this data, please perform the following analysis:
-        1.  Identify the single biggest time-sink or "rabbithole" domain.
-        2.  Suggest a potential reason *why* the user might be spending so much time there (e.g., "It seems you use Gemini for deep research, which is great, but can lead to long sessions.").
-        3.  Provide a unique and creative suggestion to help them manage their time on that specific site, going beyond generic advice like "use a timer".
-
-        Combine these points into a single, friendly paragraph of about 75 words.
-    `;
+     const prompt = chrome.i18n.getMessage("weeklyInsightPrompt", [
+        JSON.stringify(dataSummary, null, 2)
+     ]);
 
     // 4. Call the Prompt API.
     try {

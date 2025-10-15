@@ -22,6 +22,26 @@ async function initImports() {
     } catch (error) { console.error("Popup: Failed to import modules", error); }
 }
 
+/**
+ * NEW: A function to apply translations to the UI.
+ * It finds all elements with a 'data-i18n' attribute and replaces their text
+ * with the message from the _locales folder.
+ */
+function applyTranslations() {
+    // Find all elements that need translation
+    const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+    elementsToTranslate.forEach(element => {
+        // Get the key from the data attribute (e.g., "appName")
+        const key = element.getAttribute('data-i18n');
+        // Get the translated message using Chrome's built-in i18n API
+        const translatedText = chrome.i18n.getMessage(key);
+        // If a translation is found, update the element's text
+        if (translatedText) {
+            element.textContent = translatedText;
+        }
+    });
+}
+
 // --- Helper Functions ---
 let timerInterval = null; // Holds the interval ID for the real-time timer.
 
@@ -58,6 +78,9 @@ function startTimer(startTime, timerElement) {
 // --- MAIN SCRIPT ---
 // This event listener is the entry point for the entire script. It runs once the popup HTML is fully loaded.
 document.addEventListener('DOMContentLoaded', async () => {
+    // Call the new translation function right at the beginning
+    applyTranslations();
+    
     await initImports();
     
     // --- ELEMENT SELECTORS (unchanged) ---
@@ -141,19 +164,19 @@ document.addEventListener('DOMContentLoaded', async () => {
      if (weeklyReportButton) {
         // Handles the click for generating the weekly AI insight.
         weeklyReportButton.onclick = async () => {
-        showLoading("Generating Weekly Insight..."); // SHOW ANIMATION
+        showLoading(chrome.i18n.getMessage("loadingWeeklyInsight")); // SHOW ANIMATION
         weeklyReportButton.disabled = true;
         if (generateWeeklyReport) {
             const reportText = await generateWeeklyReport();
             if (reportText && !reportText.startsWith("Not enough browsing data")) {
                 insightTextElement.textContent = `🤖 ${reportText}`;
-                weeklyReportButton.textContent = 'Report Generated!';
+                weeklyReportButton.textContent = chrome.i18n.getMessage("reportGenerated");
             } else if (reportText) {
                 insightTextElement.textContent = `🤖 ${reportText}`;
-                weeklyReportButton.textContent = 'Try Again Later';
+                weeklyReportButton.textContent = chrome.i18n.getMessage("tryAgainLater");
             } else {
                 insightTextElement.textContent = '🤖 Failed to generate report. Check console.';
-                weeklyReportButton.textContent = 'Retry Report';
+                weeklyReportButton.textContent = chrome.i18n.getMessage("retryReport");
             }
         } else {
             insightTextElement.textContent = '🤖 Error: Reporter module not loaded.';
@@ -166,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (sessionReportBtn) {
         // Handles the click for exporting the current session as a report.
         sessionReportBtn.addEventListener('click', () => {
-            showLoading("Exporting Your Session..."); // Show animation
+            showLoading(chrome.i18n.getMessage("loadingExportSession")); // Show animation
             sessionReportBtn.disabled = true;
 
             // Send a message and provide a callback function to handle the response

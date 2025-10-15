@@ -14,23 +14,27 @@
         <header>
             <div class="report-title-container">
                 <img src="../assets/icons/icon64.png" alt="Report Icon" class="report-icon">
-                <h1>Your Weekly Summary</h1>
+                <h1 data-i18n="yourWeeklyReport">Your Weekly Report</h1>
             </div>
         </header>
 
         <main>
             <section class="card insight-card">
-                <h2>AI-Powered Insight</h2>
+                <h2 data-i18n="aiPoweredInsight">AI-Powered Insight</h2>
                 <p id="insight-text">Loading your personalized analysis...</p>
             </section>
 
             <section class="card chart-card">
                 <div class="card-header">
-                    <h2>Top Domains by Time Spent</h2>
+                    <h2 data-i18n="topDomainsByTime">Top Domains by Time Spent</h2>
                     <div id="chart-type-controls" class="chart-controls">
-                        <label><input type="radio" name="chartType" value="doughnut" checked> Doughnut</label>
-                        <label><input type="radio" name="chartType" value="pie"> Pie</label>
-                        <label><input type="radio" name="chartType" value="bar"> Bar</label>
+
+                        <label><input type="radio" name="chartType" value="doughnut" checked> <span
+                                data-i18n="doughnut">Doughnut</span></label>
+                        <label><input type="radio" name="chartType" value="pie"> <span
+                                data-i18n="pie">Pie</span></label>
+                        <label><input type="radio" name="chartType" value="bar"> <span
+                                data-i18n="bar">Bar</span></label>
                     </div>
                 </div>
                 <div class="chart-container">

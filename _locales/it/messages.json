@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "Tracciatore di Rabbithole"
+    },
+    "LiveSession": {
+        "message": "Sessione dal vivo"
+    },
+    "currentTopic": {
+        "message": "ARGOMENTO ATTUALE"
+    },
+    "journey": {
+        "message": "Viaggio:"
+    },
+    "exportSession": {
+        "message": "Esporta sessione"
+    },
+    "weeklyInsights": {
+        "message": "Approfondimenti settimanali"
+    },
+    "generateWeeklyInsight": {
+        "message": "Genera approfondimenti settimanali"
+    },
+    "weeklyInsightPrompt": {
+        "message": "Sei un analista esperto di produttività che esamina i dati di navigazione di un utente. Il tuo obiettivo è fornire un riepilogo specifico, non generico e approfondito. Ecco i dati, che mostrano i domini principali e il tempo totale in secondi trascorso su ciascuno: $1 Sulla base di questi dati, esegui la seguente analisi: 1. Identifica il singolo dominio che rappresenta il maggiore spreco di tempo o \"rabbithole\". 2. Suggerisci un potenziale motivo *per cui* l'utente potrebbe trascorrere così tanto tempo lì (ad esempio, \"Sembra che tu usi Gemini per ricerche approfondite, il che è ottimo, ma può portare a lunghe sessioni\"). 3. Fornisci un suggerimento unico e creativo per aiutarli a gestire il tempo trascorso su quel sito specifico, andando oltre un consiglio generico come \"usa un timer\". Combina questi punti in un unico paragrafo di circa 100 parole, in modo semplice e chiaro."
+    },
+    "sessionReportPrompt": {
+        "message": "Sei un abile scrittore e analista. Il tuo compito è sintetizzare i seguenti dati grezzi di navigazione in un articolo breve e coerente (non solo un elenco) usando Markdown.\n\nEcco i dati della sessione di navigazione:\n---\n$1\n---\n\nPer favore, esegui le seguenti operazioni:\n1. Crea un titolo incisivo per l'articolo che catturi il tema principale del percorso di scoperta dell'utente.\n2. Scrivi un breve paragrafo introduttivo che riassuma il tema generale.\n3. Per ogni argomento principale o sito web visitato, scrivi un piccolo paragrafo che spieghi cosa è stato esplorato, creando collegamenti tra le diverse pagine dove possibile.\n4. Usa Markdown per la formattazione (ad esempio, # per il titolo, ## per i sottotitoli, * per il corsivo)."
+    },
+       "viewFullReport": { 
+        "message": "Visualizza il rapporto completo →" 
+    },
+    "yourWeeklyReport": { "message": "Il tuo rapporto settimanale" },
+    "aiPoweredInsight": { "message": "Approfondimenti basati sull'intelligenza artificiale" },
+  "topDomainsByTime": { "message": "Domini principali in base al tempo trascorso" },
+  "doughnut": { "message": "Grafico a ciambella" },
+  "pie": { "message": "Grafico a torta" },
+  "bar": { "message": "Grafico a barre" },
+  "blockPageTitle": {
+    "message": "Tempo scaduto!"
+  },
+  "blockPageHeader": {
+    "message": "Budget di tempo superato"
+  },
+  "blockPageMessage": {
+    "message": "Hai superato il limite di tempo attivo giornaliero per $site$." ,
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "Questa è una base di blocco. Opzioni di override più avanzate saranno disponibili in seguito!"
+  },
+   "topicSynthesisPrompt": {
+    "message": "Analizza queste parole chiave da una sessione di navigazione: [$1]. Il tuo unico compito è generare un titolo conciso e descrittivo per questa sessione. Il titolo deve contenere meno di 8 parole. NON includere altro testo, preamboli, spiegazioni o citazioni. Fornisci solo il testo del titolo."
+  },
+  "timeSpentMinutes": { "message": "Tempo trascorso (minuti)" },
+  "totalTime": { "message": "Tempo totale" },
+  "loadingWeeklyInsight": { "message": "Generazione di approfondimenti settimanali..." },
+  "loadingExportSession": { "message": "Esportazione della sessione in corso..." },
+  "optionsTitle": { "message": "Opzioni del Rabbithole Tracker" },
+  "timeLimits": { "message": "Limiti di tempo" },
+  "timeLimitsDescription": { "message": "Aggiungere o rimuovere limiti di tempo giornalieri per siti web specifici." },
+  "domainPlaceholder": { "message": "ad esempio, youtube.com" },
+  "minsPlaceholder": { "message": "Minuti" },
+  "removeButton": { "message": "Rimuovere" },
+  "dataManagement": { "message": "Gestione dei dati" },
+  "dataManagementDescription": { "message": "Cancella la cronologia di navigazione memorizzata." },
+  "clearHistoryButton": { "message": "Cancella tutta la cronologia di navigazione" },
+  "clearHistoryConfirm": { "message": "Vuoi davvero eliminare TUTTA la cronologia di navigazione? Questa operazione non può essere annullata." },
+   "reportGenerated": { "message": "Report Generated!" },
+  "tryAgainLater": { "message": "Try Again Later" },
+  "retryReport": { "message": "Retry Report" }
+}

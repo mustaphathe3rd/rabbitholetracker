@@ -1,0 +1,76 @@
+{
+    "appName": {
+        "message": "Rabbithole Tracker"
+    },
+    "LiveSession": {
+        "message": "Live Session"
+    },
+    "currentTopic": {
+        "message": "CURRENT TOPIC"
+    },
+    "journey": {
+        "message": "Journey:"
+    },
+    "exportSession": {
+        "message": "Export Session"
+    },
+    "weeklyInsights": {
+        "message": "Weekly Insights"
+    },
+    "generateWeeklyInsight": {
+        "message": "Generate Weekly Insight"
+    },
+    "weeklyInsightPrompt": {
+        "message": "You are an expert productivity analyst reviewing a user's browsing data. Your goal is to provide a specific, non-generic, and insightful summary.\n\nHere is the data, showing the top domains and total time in seconds spent on each:\n$1\n\nBased on this data, please perform the following analysis:\n1.  Identify the single biggest time-sink or \"rabbithole\" domain.\n2.  Suggest a potential reason *why* the user might be spending so much time there (e.g., \"It seems you use Gemini for deep research, which is great, but can lead to long sessions.\").\n3.  Provide a unique and creative suggestion to help them manage their time on that specific site, going beyond generic advice like \"use a timer\".\n\nCombine these points into a single, friendly paragraph of about 100 words."
+    },
+    "sessionReportPrompt": {
+        "message": "You are a skilled writer and analyst. Your task is to synthesize the following raw browsing data into a short, coherent article (not just a list) using Markdown.\n\nHere is the data from the browsing session:\n---\n$1\n---\n\nPlease do the following:\n1.  Create an insightful title for the article that captures the main theme of the user's journey of discovery.\n2.  Write a brief introductory paragraph that summarizes the overall theme.\n3.  For each major topic or website visited, write a small paragraph that explains what was explored, drawing connections between the different pages where possible.\n4.  Use Markdown for formatting (e.g., # for the title, ## for subheadings, * for italics)."
+    },
+     "viewFullReport": { 
+        "message": "View Full Report →" 
+    },
+    "yourWeeklyReport": { "message": "Your Weekly Report" },
+    "aiPoweredInsight": { "message": "AI-Powered Insight" },
+    "topDomainsByTime": { "message": "Top Domains by Time Spent" },
+    "doughnut": { "message": "Doughnut" },
+    "pie": { "message": "Pie" },
+    "bar": { "message": "Bar" },
+    "blockPageTitle": {
+    "message": "Time's Up!"
+  },
+  "blockPageHeader": {
+    "message": "Time Budget Exceeded"
+  },
+  "blockPageMessage": {
+    "message": "You've gone over your daily active time limit for $site$." ,
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "blockPageInfo": {
+    "message": "This is a basic blocking foundation. More advanced override options will be available later!"
+  },
+   "topicSynthesisPrompt": {
+    "message": "Analyze these keywords from a browsing session: [$1]. Your single task is to generate a concise, descriptive title for this session. The title must be under 8 words. DO NOT include any other text, preambles, explanations, or quotes. Just provide the title text."
+  },
+  "timeSpentMinutes": { "message": "Time Spent (minutes)" },
+  "totalTime": { "message": "Total Time" },
+  "loadingWeeklyInsight": { "message": "Generating Weekly Insight..." },
+  "loadingExportSession": { "message": "Exporting Your Session..." },
+  "optionsTitle": { "message": "Rabbithole Tracker Options" },
+  "timeLimits": { "message": "Time Limits" },
+  "timeLimitsDescription": { "message": "Add or remove daily time limits for specific websites." },
+  "domainPlaceholder": { "message": "e.g., youtube.com" },
+  "minsPlaceholder": { "message": "Mins" },
+  "removeButton": { "message": "Remove" },
+  "dataManagement": { "message": "Data Management" },
+  "dataManagementDescription": { "message": "Clear your stored browsing history." },
+  "clearHistoryButton": { "message": "Clear All Browsing History" },
+  "clearHistoryConfirm": { "message": "Are you sure you want to delete ALL your browsing history? This cannot be undone." },
+   "reportGenerated": { "message": "Report Generated!" },
+  "tryAgainLater": { "message": "Try Again Later" },
+  "retryReport": { "message": "Retry Report" }
+}

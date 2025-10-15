@@ -13,27 +13,28 @@
         <header class="report-header">
             <div class="report-title-container">
                 <img src="../assets/icons/icon64.png" alt="Report Icon" class="report-icon">
-                <h1>Rabbithole Tracker Options</h1>
+                <span data-i18n="optionsTitle">Rabbithole Tracker Options</span>
             </div>
         </header>
         <main>
             <section class="card">
-                <h2>Time Limits</h2>
-                <p>Add or remove daily time limits for specific websites.</p>
+                <h2 data-i18n="timeLimits">Time Limits</h2>
+                <p data-i18n="timeLimitsDescription">Add or remove daily time limits for specific websites.</p>
                 <ul id="limit-list" class="limit-list">
                 </ul>
                 <form id="add-limit-form" class="add-form">
-                    <input type="text" id="domain-input" placeholder="e.g., youtube.com" required>
-                    <input type="number" id="limit-input" min="1" placeholder="Mins" required>
+                    <input type="text" id="domain-input" data-i18n-placeholder="domainPlaceholder" required>
+                    <input type="number" id="limit-input" min="1" data-i18n-placeholder="minsPlaceholder" required>
                     <button type="submit" class="btn-add">+</button>
                 </form>
             </section>
 
             <section class="card">
-                <h2>Data Management</h2>
-                <p>Clear your stored browsing history.</p>
+                <h2 data-i18n="dataManagement">Data Management</h2>
+                <p data-i18n="dataManagementDescription">Clear your stored browsing history.</p>
                 <div class="data-actions">
-                    <button id="clear-history-btn" class="btn-danger">Clear All Browsing History</button>
+                    <button id="clear-history-btn" class="btn-danger" data-i18n="clearHistoryButton">Clear All Browsing
+                        History</button>
                     <span id="status-message"></span>
                 </div>
             </section>
